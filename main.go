@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/double1996/smart-evernote-blog/routers"
+	"github.com/gin-gonic/gin"
 	"os"
 )
 
@@ -13,6 +13,7 @@ func main() {
 		port = "2345"
 	}
 
-	routersInit := routers.InitRouter()
+	app := gin.New()
+	app.Use(gin.Logger())
 
 }
