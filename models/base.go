@@ -11,7 +11,10 @@ type Model struct {
 	DeletedOn  int `json:"deleted_on"`
 }
 
-func SetUpDB() {
-	var err error
+func initDB() {
 
+}
+
+func init() error {
+	return nil
 }

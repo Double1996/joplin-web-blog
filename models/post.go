@@ -1,6 +1,8 @@
 package models
 
-type Post struct {
+type Article struct {
+	Model
+
 	TagID int `json:"tag_id" gorm:"index"`
 	Tag   Tag `json:"tag"`
 
@@ -11,4 +13,7 @@ type Post struct {
 	CreatedBy     string `json:"created_by"`
 	ModifiedBy    string `json:"modified_by"`
 	State         int    `json:"state"`
+	Name          string `json:"name"`
 }
+
+type Articles []Article

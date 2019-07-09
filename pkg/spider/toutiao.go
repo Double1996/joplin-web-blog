@@ -1,0 +1,5 @@
+package spider
+
+func init() {
+
+}
