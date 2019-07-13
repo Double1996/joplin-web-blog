@@ -37,7 +37,6 @@ func newLogger(path string) (*zap.Logger, error) {
 	if os.Getenv("IS_DEBUG") == "1" {
 		cfg.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
 	}
-	// 指定输出路径，对应ES 一般为stdout
 	cfg.OutputPaths = []string{
 		path,
 	}
@@ -49,7 +48,7 @@ func newLogger(path string) (*zap.Logger, error) {
 
 func init() {
 	once.Do(func() {
-		singleton, _ = newLogger(os.Getenv("LoggerPath"))
+		singleton, _ = newLogger("stdout")
 	})
 }
 

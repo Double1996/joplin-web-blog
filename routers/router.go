@@ -1,12 +1,13 @@
 package routers
 
 import (
+	"github.com/double1996/smart-evernote-blog/controller"
 	"github.com/gin-gonic/gin"
 )
 
-func InitRouter() *gin.Engine {
-	r := gin.New()
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
-
+func InitRouter(router *gin.Engine) {
+	posts := router.Group("/posts")
+	{
+		posts.GET("/", controller.GetPost)
+	}
 }

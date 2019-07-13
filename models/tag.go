@@ -1,8 +1,28 @@
 package models
 
+import "strconv"
+
 type Tag struct {
 	Name       string `json:"name"`
 	CreatedBy  string `json:"created_by"`
 	ModifiedBy string `json:"modified_by"`
 	State      int    `json:"state"`
+}
+
+func ListTagsByPostID(id string) (tags []*Tag, err error) {
+	pid, err := strconv.ParseUint(id, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	rows, err := DB.Raw("select t.* from tags t inner join post_tags pt on t.id = pt.tag_id where pt.post_id = ?", uint(pid)).Rows()
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var tag Tag
+		DB.ScanRows(rows, &tag)
+		tags = append(tags, &tag)
+	}
+	return tags, nil
 }
