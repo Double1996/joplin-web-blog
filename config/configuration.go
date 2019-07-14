@@ -34,12 +34,10 @@ type Configuration struct {
 func InitConfig() Configuration {
 	var config Configuration
 
-	viper.SetConfigFile("config")
+	viper.SetConfigFile("./deployments/config.yml")
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("deployments")
 
 	if err := viper.ReadInConfig(); err != nil {
-
 		logger.Error("Error reading config file", zap.String("config", err.Error()))
 	}
 	err := viper.Unmarshal(&config)
