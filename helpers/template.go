@@ -19,3 +19,8 @@ func Substring(source string, start, end int) string {
 	}
 	return string(rs[start:end])
 }
+
+//
+func Truncate() {
+
+}
