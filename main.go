@@ -4,6 +4,7 @@ import (
 	"github.com/double1996/smart-evernote-blog/config"
 	"github.com/double1996/smart-evernote-blog/helpers"
 	"github.com/double1996/smart-evernote-blog/models"
+	"github.com/double1996/smart-evernote-blog/pkg/evernote"
 	"github.com/double1996/smart-evernote-blog/pkg/logger"
 	"github.com/double1996/smart-evernote-blog/routers"
 	"go.uber.org/zap"
@@ -13,6 +14,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
+func init() {
+	config.InitConfig()
+}
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
@@ -24,16 +29,15 @@ func main() {
 	setTemplate(engine)
 	setSessions(engine)
 
-	config := config.InitConfig()
-	//evernote.SyncEverNoteClient()
+	evernote.SyncEverNoteClient()
 
-	db, err := models.InitDB(config)
+	db, err := models.InitDB(config.Conf)
 	if err != nil {
 		logger.Fatal("Fatal open database", zap.String("database", err.Error()))
 	}
 	defer db.Close()
 
-	engine.Run(":" + config.Server.Port)
+	engine.Run(":" + config.Conf.Server.Port)
 }
 
 func setTemplate(engine *gin.Engine) {
@@ -42,7 +46,7 @@ func setTemplate(engine *gin.Engine) {
 		"substring":  helpers.Substring,
 	}
 	engine.SetFuncMap(funcMap)
-	engine.LoadHTMLGlob("templates/*")
+	engine.LoadHTMLGlob("./templates/**/*")
 }
 
 func setSessions(engine *gin.Engine) {

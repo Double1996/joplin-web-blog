@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/double1996/smart-evernote-blog/config"
 	"github.com/jinzhu/gorm"
+	_ "github.com/mattn/go-sqlite3"
 	"time"
 )
 
