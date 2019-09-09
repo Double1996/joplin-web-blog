@@ -1,0 +1,36 @@
+{{define "errors/error.html"}}
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{/*        {{template "meta.html"}}*/}}
+
+        <title>Blog Home - Double</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="/static/css/blog-home.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="/static/css/base.css">
+
+    </head>
+
+    <body>
+    {{template "header.html"}}
+
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            <a href="#" class="alert-link">{{.message}}</a>
+        </div>
+    </div>
+
+    </body>
+
+    </html>
+{{end}}

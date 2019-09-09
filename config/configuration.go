@@ -6,6 +6,8 @@ import (
 	"go.uber.org/zap"
 )
 
+var Conf Configuration
+
 type ServerConfiguration struct {
 	Port string
 	ICP  string
@@ -25,14 +27,19 @@ type LogConfiguration struct {
 	Access bool // request website log
 }
 
+type EverNoteConfiguration struct {
+	EverNoteKey         string
+	EverNoteSecret      string
+	EverNoteAuthorToken string
+}
+
 type Configuration struct {
 	Server   ServerConfiguration
 	DataBase DataBaseConfiguration
 	Log      LogConfiguration
 }
 
-func InitConfig() Configuration {
-	var config Configuration
+func InitConfig() {
 
 	viper.SetConfigFile("./deployments/config.yml")
 	viper.SetConfigType("yaml")
@@ -40,9 +47,8 @@ func InitConfig() Configuration {
 	if err := viper.ReadInConfig(); err != nil {
 		logger.Error("Error reading config file", zap.String("config", err.Error()))
 	}
-	err := viper.Unmarshal(&config)
+	err := viper.Unmarshal(&Conf)
 	if err != nil {
 		logger.Fatal("Unable to decode into struct", zap.String("config", err.Error()))
 	}
-	return config
 }

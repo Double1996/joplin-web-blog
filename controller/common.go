@@ -10,7 +10,7 @@ func Handle404(c *gin.Context) {
 }
 
 func HandleMessage(c *gin.Context, msg string) {
-	c.HTML(http.StatusNotFound, "error.html", gin.H{
+	c.HTML(http.StatusNotFound, "errors/error.html", gin.H{
 		"message": msg,
 	})
 }

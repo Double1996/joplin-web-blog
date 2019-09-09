@@ -14,7 +14,6 @@ func PostsIndex(c *gin.Context) {
 	c.HTML(http.StatusOK, "post/index", gin.H{
 		"posts": posts, // TODO: need list comments
 	})
-
 }
 
 func PostGetByID(c *gin.Context) {
