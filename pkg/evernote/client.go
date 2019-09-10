@@ -1,12 +1,8 @@
 package evernote
 
 import (
-	"context"
-	"fmt"
 	"github.com/double1996/evernote-sdk-golang/client"
-	"github.com/double1996/smart-evernote-blog/pkg/logger"
 	"github.com/mrjones/oauth"
-	"time"
 )
 
 const (
@@ -29,19 +25,19 @@ func CheckoutAccessTokenIsExist() {
 /*
    use webhooks  https://dev.yinxiang.com/doc/articles/polling_notification.php
 */
-
-func SyncEverNoteClient() {
-	clientCtx, _ := context.WithTimeout(context.Background(), time.Duration(15)*time.Second)
-	c := client.NewClient(EvernoteKey, EvernoteSecret, client.YINXIANG)
-	us, err := c.GetUserStore()
-	if err != nil {
-	}
-	c.GetRequestToken(callBackURL)
-	userUrls, err := us.GetUserUrls(clientCtx, EvernoteAuthorToken)
-	if err != nil {
-	}
-	fmt.Println(userUrls)
-}
+//
+//func SyncEverNoteClient() {
+//	clientCtx, _ := context.WithTimeout(context.Background(), time.Duration(15)*time.Second)
+//	c := client.NewClient(EvernoteKey, EvernoteSecret, client.YINXIANG)
+//	us, err := c.GetUserStore()
+//	if err != nil {
+//	}
+//	c.GetRequestToken(callBackURL)
+//	userUrls, err := us.GetUserUrls(clientCtx, EvernoteAuthorToken)
+//	if err != nil {
+//	}
+//	fmt.Println(userUrls)
+//}
 
 //func SyncEverNoteClient() {
 //	clientCtx, _ := context.WithTimeout(context.Background(), time.Duration(15)*time.Second)
@@ -63,29 +59,29 @@ func SyncEverNoteClient() {
 //}
 
 //
-func FirstBathchInsertNotes(at *oauth.AccessToken) {
-	clientCtx, _ := context.WithTimeout(context.Background(), time.Duration(15)*time.Second)
-	us, err := Client.GetUserStore()
-	if err != nil {
-		logger.Error(err.Error())
-	}
-	userUrls, err := us.GetUserUrls(clientCtx, at.Token)
-	if err != nil {
-		logger.Error(err.Error())
-	}
-	if userUrls == nil {
-		logger.Error("not found evernote note")
-		return
-	}
-	ns, err := Client.GetNoteStoreWithURL(userUrls.GetNoteStoreUrl())
-	if err != nil {
-		logger.Error(err.Error())
-	}
-	note, err := ns.GetDefaultNotebook(clientCtx, EvernoteAuthorToken)
-	if err != nil {
-		logger.Error(err.Error())
-	}
-	if note == nil {
-		logger.Error(err.Error())
-	}
-}
+//func FirstBathchInsertNotes(at *oauth.AccessToken) {
+//	clientCtx, _ := context.WithTimeout(context.Background(), time.Duration(15)*time.Second)
+//	us, err := Client.GetUserStore()
+//	if err != nil {
+//		logger.Error(err.Error())
+//	}
+//	userUrls, err := us.GetUserUrls(clientCtx, at.Token)
+//	if err != nil {
+//		logger.Error(err.Error())
+//	}
+//	if userUrls == nil {
+//		logger.Error("not found evernote note")
+//		return
+//	}
+//	ns, err := Client.GetNoteStoreWithURL(userUrls.GetNoteStoreUrl())
+//	if err != nil {
+//		logger.Error(err.Error())
+//	}
+//	note, err := ns.GetDefaultNotebook(clientCtx, EvernoteAuthorToken)
+//	if err != nil {
+//		logger.Error(err.Error())
+//	}
+//	if note == nil {
+//		logger.Error(err.Error())
+//	}
+//}
