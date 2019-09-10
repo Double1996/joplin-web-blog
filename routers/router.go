@@ -13,10 +13,10 @@ func InitRouter(router *gin.Engine) {
 	en := router.Group("/evernote") // 印象笔记路由组
 	{
 		en.GET("/webhook/", controller.GetNewEverNoteByWebhook)
+		en.GET("/callback", controller.GetEverNoteCallback)
 	}
 	router.GET("/", controller.IndexGet)
-	router.GET("/evernote/callback", controller.GetEverNoteCallback)
-	router.GET("/evernote/webhook", controller.GetNewEverNoteByWebhook)
+	router.GET("/about", controller.About)
 	router.Static("/static", "./static")
 
 	router.NoRoute(controller.Handle404)
