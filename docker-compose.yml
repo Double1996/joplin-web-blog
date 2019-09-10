@@ -8,7 +8,7 @@ services:
       - 8001:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/drone:/var/lib/drone/
+      - /data/drone:/data
     restart: always
     environment:
       - DRONE_OPEN=true
