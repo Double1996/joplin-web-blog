@@ -42,21 +42,21 @@ steps:
       dockerfile: ./Dockerfile
       tags: latest
 
-  - name: deploy
-    image: docker:latest
-    volumes:
-      - name: docker
-        path: /var/run/docker.sock
-    environment:
-      USERNAME:
-        from_secret: docker_username
-      PASSWORD:
-        from_secret: docker_password
-    commands:
-      - docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD hub.tencentyun.com
-      - docker pull hub.tencentyun.com/double1996/blog:latest
-      - docker rm -f blog || true
-      - docker run -d  --name blog -p 8001:8001 hub.tencentyun.com/double1996/blog:latest
+#  - name: deploy
+#    image: docker:latest
+#    volumes:
+#      - name: docker
+#        path: /var/run/docker.sock
+#    environment:
+#      USERNAME:
+#        from_secret: docker_username
+#      PASSWORD:
+#        from_secret: docker_password
+#    commands:
+#      - docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD hub.tencentyun.com
+#      - docker pull hub.tencentyun.com/double1996/blog:latest
+#      - docker rm -f blog || true
+#      - docker run -d  --name blog -p 8001:8001 hub.tencentyun.com/double1996/blog:latest
 
 trigger:
   branch:
@@ -67,6 +67,6 @@ trigger:
 volumes:
   - name: deps
     temp: {}
-  - name: docker
-    host:
-      path: /var/run/docker.sock
+#  - name: docker
+#    host:
+#      path: /var/run/docker.sock
