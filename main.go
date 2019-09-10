@@ -4,7 +4,6 @@ import (
 	"github.com/double1996/smart-evernote-blog/config"
 	"github.com/double1996/smart-evernote-blog/helpers"
 	"github.com/double1996/smart-evernote-blog/models"
-	"github.com/double1996/smart-evernote-blog/pkg/evernote"
 	"github.com/double1996/smart-evernote-blog/pkg/logger"
 	"github.com/double1996/smart-evernote-blog/routers"
 	"go.uber.org/zap"
@@ -29,7 +28,7 @@ func main() {
 	setTemplate(engine)
 	setSessions(engine)
 
-	evernote.SyncEverNoteClient()
+	//evernote.SyncEverNoteClient()
 
 	db, err := models.InitDB(config.Conf)
 	if err != nil {
