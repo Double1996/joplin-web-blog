@@ -30,6 +30,27 @@ steps:
     commands:
       - go build -v -a -o bin/server_exec main.go
 
+  - name: publish
+    image: plugins/docker
+    setting:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: hub.tencentyun.com/double1996/blog
+      registry: hub.tencentyun.com
+      dockerfile: ./Dockerfile
+      tags: latest
+
+#  - name: deploy
+#    image: docker:latest
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    environment:
+#      DRONE_EXAMPLE_TAG: ${DRONE_COMMIT_SHA}
+#    commands:
+#      - docker run -d  --name blog -p 8001:8001
+
 trigger:
   branch:
     - master
