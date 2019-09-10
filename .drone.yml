@@ -14,7 +14,7 @@ steps:
       GO111MODULE: on
       GOPROXY: https://goproxy.io
     commands:
-      - go test
+      - go test -mod=vendor
 
   - name: build
     image: golang:1.12
@@ -28,7 +28,7 @@ steps:
       GOOS: linux
       GOARCH: amd64
     commands:
-      - go build -v -a -o bin/server_exec main.go
+      - go build -v -a -o -mod=vendor bin/server_exec main.go
 
   - name: publish
     image: plugins/docker
@@ -42,14 +42,21 @@ steps:
       dockerfile: ./Dockerfile
       tags: latest
 
-#  - name: deploy
-#    image: docker:latest
-#    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock
-#    environment:
-#      DRONE_EXAMPLE_TAG: ${DRONE_COMMIT_SHA}
-#    commands:
-#      - docker run -d  --name blog -p 8001:8001
+  - name: deploy
+    image: docker:latest
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+    environment:
+      USERNAME:
+        from_secret: docker_username
+      PASSWORD:
+        from_secret: docker_password
+    commands:
+      - docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD hub.tencentyun.com
+      - docker pull hub.tencentyun.com/double1996/blog:latest
+      - docker rm -f blog || true
+      - docker run -d  --name blog -p 8001:8001 hub.tencentyun.com/double1996/blog:latest
 
 trigger:
   branch:
@@ -60,3 +67,6 @@ trigger:
 volumes:
   - name: deps
     temp: {}
+  - name: docker
+    host:
+      path: /var/run/docker.sock
