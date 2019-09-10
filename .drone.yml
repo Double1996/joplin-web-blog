@@ -1,9 +1,10 @@
 kind: pipeline
+type: docker
 name: blog
 
 steps:
   - name: test
-    image: golang
+    image: golang1.12
     volumes:
       - name: deps
         path: /go
@@ -11,13 +12,18 @@ steps:
       - go test
 
   - name: build
-    image: golang1.13
+    image: golang1.12
     volumes:
       - name: deps
         path: /go
     commands:
       - go build
-      - name: deps
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
 
 volumes:
   - name: deps

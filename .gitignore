@@ -19,4 +19,4 @@
 *.code-workspace
 deployments/config.yml
 net.sh
-blog.db
+*.db

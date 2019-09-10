@@ -2,7 +2,7 @@ version: '2'
 
 services:
   drone-server:
-    image: drone/drone:1
+    image: drone/drone:1.3
     ports:
       - 8000:8000
       - 8001:80
@@ -17,9 +17,10 @@ services:
       - DRONE_GIT_ALWAYS_AUTH=false
       - DRONE_SERVER_HOST=0.0.0.0
       - DRONE_SERVER_PROTO=8000
+      - DRONE_LOGS_DEBUG=true
 
   drone-agent:
-    image: drone/agent:1
+    image: drone/agent:1.3
     ports:
       - 4000:3000
     command: agent
