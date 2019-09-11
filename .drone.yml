@@ -40,7 +40,9 @@ steps:
       repo: hub.tencentyun.com/double1996/blog
       registry: hub.tencentyun.com
       dockerfile: ./Dockerfile
-      tags: latest
+      tags:
+        - "${DRONE_BUILD_NUMBER}"
+        - "latest"
 
 #  - name: deploy
 #    image: docker:latest
