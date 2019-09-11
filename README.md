@@ -31,3 +31,5 @@
 
 ## Change Log
 
+- 0.1 支持 drone ci/cd 
+
