@@ -1,0 +1,5 @@
+package joplin
+
+func ExecSyncJoplinNote() {
+
+}
