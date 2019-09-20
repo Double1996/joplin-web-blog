@@ -1,6 +1,6 @@
-# smart-evernote-blog
+# joplin-web-blog
 
-[![Build Status](http://www.double1996.com:8001/api/badges/Double1996/smart-evernote-blog/status.svg?ref=refs/heads/master)](http://www.double1996.com:8001/Double1996/smart-evernote-blog)
+[![Build Status](http://www.double1996.com:8001/api/badges/Double1996/joplin-web-blog/status.svg?ref=refs/heads/master)](http://www.double1996.com:8001/Double1996/joplin-web-blog)
 > 一款基于印象笔记智能博客系统, 用户可以通过印象笔记客户端, 同步markdown笔记到此blog系统中。
 
 ## blog Post

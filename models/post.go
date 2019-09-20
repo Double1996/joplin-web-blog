@@ -10,7 +10,6 @@ type Post struct {
 	Title        string     // title
 	Body         string     // body
 	View         int        // view count
-	IsPublished  bool       // published or not
 	Tags         []*Tag     `gorm:"-"` // tags of post
 	Comments     []*Comment `gorm:"-"` // comments of post
 	CommentTotal int        `gorm:"-"` // count of comment
@@ -63,6 +62,12 @@ func _listPost(tag string, published bool, pageIndex, pageSize int) (posts []*Po
 	return
 }
 
-func ListPostTitle() {
+func (p *Post) Insert() error {
+	return DB.Where(Post{Title: p.Title}).FirstOrCreate(&p).Error // TODO: create or update
+}
 
+func (p *Post) UpdateView() error {
+	return DB.Model(p).Updates(map[string]interface{}{
+		"view": p.View,
+	}).Error
 }

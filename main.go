@@ -1,15 +1,14 @@
 package main
 
 import (
-	"github.com/double1996/smart-evernote-blog/config"
-	"github.com/double1996/smart-evernote-blog/helpers"
-	"github.com/double1996/smart-evernote-blog/models"
-	"github.com/double1996/smart-evernote-blog/pkg/logger"
-	"github.com/double1996/smart-evernote-blog/routers"
+	"github.com/double1996/joplin-web-blog/config"
+	"github.com/double1996/joplin-web-blog/helpers"
+	"github.com/double1996/joplin-web-blog/models"
+	"github.com/double1996/joplin-web-blog/pkg/joplin"
+	"github.com/double1996/joplin-web-blog/pkg/logger"
+	"github.com/double1996/joplin-web-blog/routers"
 	"go.uber.org/zap"
 	"html/template"
-
-	//"github.com/double1996/smart-evernote-blog/pkg/evernote"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,13 +27,13 @@ func main() {
 	setTemplate(engine)
 	setSessions(engine)
 
-	//evernote.SyncEverNoteClient()
-
 	db, err := models.InitDB(config.Conf)
 	if err != nil {
 		logger.Fatal("Fatal open database", zap.String("database", err.Error()))
 	}
 	defer db.Close()
+
+	joplin.SyncJoplinBlog()
 
 	engine.Run(":" + config.Conf.Server.Port)
 }

@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/double1996/smart-evernote-blog/pkg/logger"
+	"github.com/double1996/joplin-web-blog/pkg/logger"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
@@ -27,16 +27,17 @@ type LogConfiguration struct {
 	Access bool // request website log
 }
 
-type EverNoteConfiguration struct {
-	EverNoteKey         string
-	EverNoteSecret      string
-	EverNoteAuthorToken string
+type JoplinConfig struct {
+	Token string
+	Host  string
+	Port  string
 }
 
 type Configuration struct {
 	Server   ServerConfiguration
 	DataBase DataBaseConfiguration
 	Log      LogConfiguration
+	Joplin   JoplinConfig
 }
 
 func InitConfig() {

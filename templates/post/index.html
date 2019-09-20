@@ -1,0 +1,23 @@
+{{ define  "post/index.html"}}
+    {{template "index/index.html" .}}
+
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            <a href="#" class="alert-link">{{.message}}</a>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/10.0.0/markdown-it.min.js"></script>
+    <script>
+        // node.js, "classic" way:
+        var MarkdownIt = require('markdown-it'),
+            md = new MarkdownIt();
+        var result = md.render('# markdown-it rulezz!');
+
+        // node.js, the same, but with sugar:
+        var md = require('markdown-it')();
+        var result = md.render('# markdown-it rulezz!');
+
+        var md = window.markdownit();
+        var result = md.render('# markdown-it rulezz!');
+    </script>
+{{ end }}
