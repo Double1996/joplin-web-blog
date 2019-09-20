@@ -5,16 +5,16 @@ clone:
   depth: 1
 
 steps:
-  - name: test
-    image: golang:1.12
-    volumes:
-      - name: deps
-        path: /go
-    environment:
-      GO111MODULE: on
-      GOPROXY: https://goproxy.io
-    commands:
-      - go test -mod=vendor
+#  - name: test
+#    image: golang:1.12
+#    volumes:
+#      - name: deps
+#        path: /go
+#    environment:
+#      GO111MODULE: on
+#      GOPROXY: https://goproxy.io
+#    commands:
+#      - go test -mod=vendor
 
   - name: build
     image: golang:1.12
@@ -44,21 +44,23 @@ steps:
         - "${DRONE_BUILD_NUMBER}"
         - "latest"
 
-#  - name: deploy
-#    image: docker:latest
-#    volumes:
-#      - name: docker
-#        path: /var/run/docker.sock
-#    environment:
-#      USERNAME:
-#        from_secret: docker_username
-#      PASSWORD:
-#        from_secret: docker_password
-#    commands:
-#      - docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD hub.tencentyun.com
-#      - docker pull hub.tencentyun.com/double1996/blog:latest
-#      - docker rm -f blog || true
-#      - docker run -d  --name blog -p 8001:8001 hub.tencentyun.com/double1996/blog:latest
+  - name: deploy
+    image: docker:latest
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+    environment:
+      USERNAME:
+        from_secret: docker_username
+      PASSWORD:
+        from_secret: docker_password
+      Port:
+        from_secret: blog_port
+    commands:
+      - docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD hub.tencentyun.com
+      - docker pull hub.tencentyun.com/double1996/blog:latest
+      - docker rm -f blog || true
+      - docker run -d --name blog -p 8888:$blog_port hub.tencentyun.com/double1996/blog:latest
 
 trigger:
   branch:
@@ -69,6 +71,6 @@ trigger:
 volumes:
   - name: deps
     temp: {}
-#  - name: docker
-#    host:
-#      path: /var/run/docker.sock
+  - name: docker
+    host:
+      path: /var/run/docker.sock
