@@ -36,18 +36,19 @@ func ListAllPost(tag string) ([]*Post, error) {
 }
 
 func _listPost(tag string, published bool, pageIndex, pageSize int) (posts []*Post, err error) {
-	if len(tag) > 0 {
-		tagID, err := strconv.ParseUint(tag, 10, 64)
+	if len(tag) >= 0 {
+		//_, err := strconv.ParseUint(tag, 10, 64)
 		if err != nil {
 			return nil, err
 		}
 		var rows *sql.Rows
 		if published {
-			if pageSize > 0 {
-				rows, err = DB.Raw("select p.* from posts p inner join post_tags pt on p.id = pt.post_id where pt.tag_id = ? and p.is_published = ? order by created_at desc limit ? offset ?", tagID, true, pageSize, (pageIndex-1)*pageSize).Rows()
-			} else {
-				rows, err = DB.Raw("select p.* from posts p inner join post_tags pt on p.id = pt.post_id where pt.tag_id = ? and p.is_published = ? order by created_at desc", tagID, true).Rows()
-			}
+			//if pageSize > 0 {
+			//	rows, err = DB.Raw("select p.* from posts p inner join post_tags pt on p.id = pt.post_id where pt.tag_id = ?  order by created_at desc limit ? offset ?", tagID, true, pageSize, (pageIndex-1)*pageSize).Rows()
+			//} else {
+			//	rows, err = DB.Raw("select p.* from posts p inner join post_tags pt on p.id = pt.post_id where pt.tag_id = ? and p.is_published = ? order by created_at desc", tagID, true).Rows()
+			//}
+			rows, err = DB.Raw("select * from posts").Rows()
 			if err != nil {
 				return nil, err
 			}

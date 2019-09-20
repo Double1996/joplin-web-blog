@@ -1,14 +1,17 @@
 package controller
 
 import (
+	"github.com/double1996/joplin-web-blog/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func IndexGet(c *gin.Context) {
-	//post := models.GetPostByID()
-	c.HTML(http.StatusOK, "index/index.html", gin.H{
-		//"posts":           posts,
+func Home(c *gin.Context) {
+	posts, err := models.ListAllPost("")
+	if err != nil {
+	}
+	c.HTML(http.StatusOK, "index/home.html", gin.H{
+		"posts": posts,
 		//"tags":            models.MustListTag(),
 		//"archives":        models.MustListPostArchives(),
 		//"links":           models.MustListLinks(),

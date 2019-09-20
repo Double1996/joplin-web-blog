@@ -10,7 +10,6 @@ type EverNoteAt struct {
 	EdamWebApiUrlPrefix string
 }
 
-// 写入
 func (at *EverNoteAt) Insert() error {
 	return DB.Create(at).Error
 }

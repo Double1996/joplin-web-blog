@@ -1,9 +1,22 @@
-{{ define  "post/list.html"}}
-    {{template "index/index.html" .}}
-
+{{ define "post/list.html"}}
+    {{template "index/home.html" .}}
     <div class="container">
-        <div class="alert alert-warning" role="alert">
-            <a href="#" class="alert-link">{{.message}}</a>
-        </div>
+        {{if .message}}
+            <div class="alert alert-warning" role="alert">
+                <a href="#" class="alert-link">{{.message}}</a>
+            </div>
+        {{end}}
+        <ul class="list-group ml-2">
+            {{range $postvalue:=.posts}}
+                <li>{{ dataFormat $postvalue.CreatedTime "06-01-02 15:04" }} - <a href="/posts/{{$postvalue.ID}}">{{ $postvalue.Title }}</a>
+                </li>
+            {{end}}
+        </ul>
+
+        {{ if .totalCount }}
+            <li class="list-unstyled">
+                {{/*            <a href="/archive">>>> 查看全部(共{{ .totalCount }}篇文章)</a>*/}}
+            </li>
+        {{ end }}
     </div>
 {{ end }}

@@ -9,8 +9,10 @@ func InitRouter(router *gin.Engine) {
 	posts := router.Group("/posts")
 	{
 		posts.GET("/", controller.PostsIndex)
+		posts.GET("/:id", controller.PostGetContextByID)
+
 	}
-	router.GET("/", controller.IndexGet)
+	router.GET("/", controller.Home)
 	router.GET("/about", controller.About)
 	router.Static("/static", "./static")
 

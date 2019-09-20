@@ -1,23 +1,47 @@
 {{ define  "post/index.html"}}
-    {{template "index/index.html" .}}
+    {{template "index/home.html" .}}
 
     <div class="container">
-        <div class="alert alert-warning" role="alert">
-            <a href="#" class="alert-link">{{.message}}</a>
-        </div>
+        {{if .message}}
+            <div class="alert alert-warning" role="alert">
+                <a href="#" class="alert-link">{{.message}}</a>
+            </div>
+        {{end}}
+        <div id="markdown">{{.post.Body}}</div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/10.0.0/markdown-it.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/markdown.css"/>
+
+    <link rel="stylesheet" href="/static/css/base.css"/>
+    <!-- markdown parse -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@8.3.1/dist/markdown-it.js"></script>
+
+    <!-- code syntax highlighting -->
+    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"/>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.2.2/dist/jquery.form.min.js"
+            integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i"
+            crossorigin="anonymous">
+    </script>
+
     <script>
-        // node.js, "classic" way:
-        var MarkdownIt = require('markdown-it'),
-            md = new MarkdownIt();
-        var result = md.render('# markdown-it rulezz!');
+        $(document).ready(function () {
+            // markdown parse
+            var md = window.markdownit({
+                html: true
+            });
+            var result = md.render($("#markdown").text());
+            $("#markdown").html(result);
 
-        // node.js, the same, but with sugar:
-        var md = require('markdown-it')();
-        var result = md.render('# markdown-it rulezz!');
-
-        var md = window.markdownit();
-        var result = md.render('# markdown-it rulezz!');
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+        });
     </script>
 {{ end }}

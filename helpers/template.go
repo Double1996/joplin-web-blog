@@ -4,8 +4,9 @@ import (
 	"time"
 )
 
-func DateFormat(t time.Time, layout string) string {
-	return t.Format(layout)
+func DateFormat(t int64, layout string) string {
+	tm := time.Unix(t/1000, 0)
+	return tm.Format(layout)
 }
 
 func Substring(source string, start, end int) string {

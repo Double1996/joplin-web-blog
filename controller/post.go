@@ -11,7 +11,7 @@ func PostsIndex(c *gin.Context) {
 	if err != nil {
 
 	}
-	c.HTML(http.StatusOK, "post/index", gin.H{
+	c.HTML(http.StatusOK, "post/list.html", gin.H{
 		"posts": posts, // TODO: need list comments
 	})
 }
@@ -22,10 +22,14 @@ func PostGetContextByID(c *gin.Context) {
 	if err != nil {
 	}
 	post.View++
-	tags, _ := models.GetPostByID(id)
-	c.HTML(http.StatusOK, "", gin.H{
+	err = post.UpdateView()
+	if err != nil {
+
+	}
+	//tags, _ := models.GetPostByID(id)
+	c.HTML(http.StatusOK, "post/index.html", gin.H{
 		"post": post,
-		"tags": tags,
+		//"tags": tags,
 	})
 }
 
