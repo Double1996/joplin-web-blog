@@ -47,8 +47,7 @@ steps:
   - name: deploy
     image: docker:latest
     volumes:
-      - name: docker
-        path: /var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       USERNAME:
         from_secret: docker_username
@@ -71,6 +70,4 @@ trigger:
 volumes:
   - name: deps
     temp: {}
-  - name: docker
-    host:
-      path: /var/run/docker.sock
+
