@@ -57,7 +57,7 @@ steps:
         from_secret: blog_port
     commands:
       - docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD hub.tencentyun.com
-      - docker pull hub.tencentyun.com/double1996/blog:latest
+      - docker pull hub.tencentyun.com/double1996/blog:${DRONE_BUILD_NUMBER}
       - docker rm -f blog || true
       - docker run -d --name blog -p 8888:$blog_port hub.tencentyun.com/double1996/blog:${DRONE_BUILD_NUMBER}
 
