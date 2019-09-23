@@ -1,5 +1,5 @@
 {{ define  "post/index.html"}}
-    {{template "index/home.html" .}}
+    {{template "index/base.html" .}}
 
     <div class="container">
         {{if .message}}
@@ -10,21 +10,15 @@
         <div id="markdown">{{.post.Body}}</div>
     </div>
 
-    <link rel="stylesheet" href="/static/css/markdown.css"/>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.slim.js"></script>
 
-    <link rel="stylesheet" href="/static/css/base.css"/>
     <!-- markdown parse -->
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@8.3.1/dist/markdown-it.js"></script>
 
     <!-- code syntax highlighting -->
-    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+    {{/*    <link rel="stylesheet" href="/static/css/markdown.css"/>*/}}
     <script>hljs.initHighlightingOnLoad();</script>
-
-    <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.2.2/dist/jquery.form.min.js"
-            integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i"
-            crossorigin="anonymous">
-    </script>
 
     <script>
         $(document).ready(function () {
@@ -34,14 +28,6 @@
             });
             var result = md.render($("#markdown").text());
             $("#markdown").html(result);
-
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 100) {
-                    $('#back-to-top').fadeIn();
-                } else {
-                    $('#back-to-top').fadeOut();
-                }
-            });
         });
     </script>
 {{ end }}

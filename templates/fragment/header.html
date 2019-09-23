@@ -1,46 +1,5 @@
 {{define "header.html"}}
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Double</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="/index">Blog</a>
-                    </li>
-                    <li>
-                        <a href="/about">About</a>
-                    </li>
-                    <li>
-                        <a href="/rss" target="_blank">RSS</a>
-                    </li>
-                    <li>
-                        <a href="/subscribe">Subscribe</a>
-                    </li>
-                </ul>
-
-                <ul class="pull-right nav navbar-nav">
-{{/*                    <ul class="nav navbar-nav">*/}}
-{{/*                        {{if .user}}*/}}
-{{/*                            <li><a href="/logout">退出登录</a></li>*/}}
-{{/*                        {{else}}*/}}
-{{/*                            <li><a href="/auth/github">Github登录</a></li>*/}}
-{{/*                        {{end}}*/}}
-{{/*                    </ul>*/}}
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-
-        </div>
-        <!-- /.container -->
-    </nav>
+    <header class = "col-md-offset-3 col-lg-offset-3 col-xl-offset-3">
+        <p><a href="/">Double's Program World</a> - <a href="/blog">Blog</a> - <a href="/contact">Contact</a> - <a href="/resume">Resume</a> - <a href="/talks">Talks</a> | <a target="_blank" rel="noopener noreferrer" href="https://graphviz.christine.website">GraphViz</a> - <a target="_blank" rel="noopener noreferrer" href="https://when-then-zen.christine.website/">When Then Zen</a></p>
+    </header>
 {{end}}

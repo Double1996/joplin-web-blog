@@ -1,44 +1,70 @@
-{{define "index/home.html"}}
+{{ define "index/home.html"}}
+    {{template "index/base.html" .}}
 
-    <!DOCTYPE html>
-    <html lang="en">
+    <style>
+        img {
+            max-width: 100%;
+            padding: 2em;
+            padding-left: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="/static/css/hack.css" />
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        {{/*        {{template "meta.html"}}*/}}
+    <div class="container">
+        {{if .message}}
+            <div class="alert alert-success" role="alert">
+                <a href="#" class="alert-link">{{.message}}</a>
+            </div>
+        {{end}}
+        <div class="snowframe">
+            <div class="grid">
+                <div class="cell -3of12 content">
+                    <img src="/static/img/avatar.jpeg" alt="My Avatar">
+                    <br/>
+                    <a href="/" class="justify-content-center">forrestshuang@gmail.com</a>
+                </div>
+                <div class="cell -9of12 content">
+                    <h1>Forrest Double</h1>
+                    <h4>Web and Backend Services Full Stack Developer</h4>
+                    <h5>Skills</h5>
+                    <ul>
+                        <li>Go == Python > JavaScript >= Ruby >= Java > C/C++</li>
+                        <li>Docker K8s Service Mesh</li>
+                        <li>Go/Python Backend  & Vue.js  </li>
+                        <li>AI & Machine Learning</li>
+                    </ul>
 
-        <title>Blog Home - Double</title>
+                    <h5>Last Posts</h5>
+                    <ul>
+                        {{range $postvalue:=.posts}}
+                            <li>{{ dataFormat $postvalue.CreatedTime "06-01-02 15:04" }} - <a
+                                        href="/posts/{{$postvalue.ID}}">{{ $postvalue.Title }}</a>
+                            </li>
+                        {{end}}
+                    </ul>
 
-        <!-- Bootstrap Core CSS -->
-        <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+                    <h5>Highlighted Projects</h5>
+                    <ul>
+                        <li><a href="https://github.com/Xe/PonyAPI">PonyAPI</a> - My Little Pony: Friendship is Magic
+                            Episode information API
+                        </li>
+                        <li><a href="https://github.com/PonyvilleFM/aura">Aura</a> - PonyvilleFM live DJ recording bot
+                        </li>
+                        <li><a href="https://github.com/Elemental-IRCd/elemental-ircd">Elemental-IRCd</a> - IRC Server
+                            Software
+                        </li>
+                        <li><a href="https://github.com/Xe/site">This website</a> - The backend and templates for this
+                            website
+                        </li>
+                    </ul>
 
-        <!-- Custom CSS -->
-        <link href="/static/css/blog-home.css" rel="stylesheet">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-        <link rel="stylesheet" href="/static/css/base.css">
-
-    </head>
-    <body>
-    {{template "header.html" .}}
-    {{template "footer.html"}}
-
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.slim.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    </body>
-    </html>
-{{end}}
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="https://github.com/double1996">GitHub</a></li>
+                        <li><a href="https://facebook.com/double1996">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ end }}
