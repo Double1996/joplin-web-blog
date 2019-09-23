@@ -28,7 +28,7 @@ steps:
       GOOS: linux
       GOARCH: amd64
     commands:
-      - go build -mod=vendor -v -a -o bin/server_exec main.go
+      - go build -mod=vendor -v  -p -o  bin/server_exec main.go
 
   - name: publish
     image: plugins/docker
