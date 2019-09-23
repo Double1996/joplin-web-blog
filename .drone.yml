@@ -5,16 +5,16 @@ clone:
   depth: 1
 
 steps:
-#  - name: test
-#    image: golang:1.12
-#    volumes:
-#      - name: deps
-#        path: /go
-#    environment:
-#      GO111MODULE: on
-#      GOPROXY: https://goproxy.io
-#    commands:
-#      - go test -mod=vendor
+  #  - name: test
+  #    image: golang:1.12
+  #    volumes:
+  #      - name: deps
+  #        path: /go
+  #    environment:
+  #      GO111MODULE: on
+  #      GOPROXY: https://goproxy.io
+  #    commands:
+  #      - go test -mod=vendor
 
   - name: build
     image: golang:1.12
@@ -24,11 +24,10 @@ steps:
     environment:
       GO111MODULE: on
       GOPROXY: https://goproxy.io
-      CGO_ENABLED: 0
       GOOS: linux
       GOARCH: amd64
     commands:
-      - go build -mod=vendor -v  -p -o  bin/server_exec main.go
+      - go build -mod=vendor -v -a -o bin/server_exec main.go
 
   - name: publish
     image: plugins/docker
