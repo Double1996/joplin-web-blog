@@ -195,7 +195,6 @@ a:hover {
 .hack h4,
 .hack h5,
 .hack h6,
-/*.hack header,*/
 .hack li,
 .hack ol,
 .hack p,
@@ -220,6 +219,7 @@ a:hover {
     padding: 20px 0 30px;
     margin: 0;
     overflow: hidden;
+    font-size: 16px;
 }
 .hack h1:after {
     content: "====================================================================================================";
@@ -245,21 +245,21 @@ a:hover {
 .hack h6:before {
     display: inline;
 }
-.hack h2:before {
-    content: "## ";
-}
-.hack h3:before {
-    content: "### ";
-}
-.hack h4:before {
-    content: "#### ";
-}
-.hack h5:before {
-    content: "##### ";
-}
-.hack h6:before {
-    content: "###### ";
-}
+/*.hack h2:before {*/
+/*    content: "## ";*/
+/*}*/
+/*.hack h3:before {*/
+/*    content: "### ";*/
+/*}*/
+/*.hack h4:before {*/
+/*    content: "#### ";*/
+/*}*/
+/*.hack h5:before {*/
+/*    content: "##### ";*/
+/*}*/
+/*.hack h6:before {*/
+/*    content: "###### ";*/
+/*}*/
 .hack li {
     position: relative;
     display: block;

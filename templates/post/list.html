@@ -1,22 +1,36 @@
 {{ define "post/list.html"}}
-    {{template "index/home.html" .}}
+    {{template "index/base.html" .}}
     <div class="container">
         {{if .message}}
             <div class="alert alert-warning" role="alert">
                 <a href="#" class="alert-link">{{.message}}</a>
             </div>
         {{end}}
+        <h1>Blogposts</h1>
+
+        <p>If you have a compatible reader, be sure to check out my <a href="/blog.rss">RSS Feed</a> for automatic
+            updates. Also check out the <a href="/blog.json">JSONFeed</a>.</p>
         <ul class="list-group ml-2">
             {{range $postvalue:=.posts}}
-                <li>{{ dataFormat $postvalue.CreatedTime "06-01-02 15:04" }} - <a href="/posts/{{$postvalue.ID}}">{{ $postvalue.Title }}</a>
+                <li><a href="/posts/{{$postvalue.ID}}">  {{ $postvalue.Title }} </a>
+                    <div class="pull-right">
+                        Create At:{{ dataFormat $postvalue.CreatedTime "06-01-02 15:04" }} -
+                        Last Update: {{ dataFormat $postvalue.UpdatedTime "06-01-02 15:04" }} |
+                        Views: {{$postvalue.View}}
+                    </div>
                 </li>
             {{end}}
         </ul>
 
         {{ if .totalCount }}
             <li class="list-unstyled">
-                {{/*            <a href="/archive">>>> 查看全部(共{{ .totalCount }}篇文章)</a>*/}}
             </li>
         {{ end }}
     </div>
+
+    <style>
+        li {
+            color: #00acc1;
+        }
+    </style>
 {{ end }}

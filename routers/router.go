@@ -13,7 +13,7 @@ func InitRouter(router *gin.Engine) {
 
 	}
 	router.GET("/", controller.Home)
-	router.GET("/about", controller.About)
+	router.GET("/resume", controller.Resume)
 	router.Static("/static", "./static")
 
 	router.NoRoute(controller.Handle404)

@@ -24,6 +24,6 @@ func Home(c *gin.Context) {
 	})
 }
 
-func About(c *gin.Context) {
-	c.HTML(http.StatusOK, "index/about.html", gin.H{})
+func Resume(c *gin.Context) {
+	c.HTML(http.StatusOK, "index/resume.html", gin.H{})
 }
