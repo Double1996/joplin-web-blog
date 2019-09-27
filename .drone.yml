@@ -44,8 +44,8 @@ steps:
 #        - "latest"
 
   - name: deploy
-    image: docker/compose
-    volume:
+    image: docker
+    volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       USERNAME:
@@ -55,11 +55,11 @@ steps:
       Port:
         from_secret: blog_port
     commands:
-#      - docker login --username=$USERNAME --password=$PASSWORD hub.tencentyun.com
-#      - docker pull hub.tencentyun.com/double1996/blog:last
-      - docker-compose up -d
-#      - docker rm -f blog || true
-#      - docker run -d --name blog -p 8888:$blog_port hub.tencentyun.com/double1996/blog:${DRONE_BUILD_NUMBER}
+      - docker login --username=$USERNAME --password=$PASSWORD hub.tencentyun.com
+      - docker pull hub.tencentyun.com/double1996/blog:last
+#      - docker-compose up -d
+      - docker rm -f blog || true
+      - docker run -d --name blog -p 8888:$blog_port hub.tencentyun.com/double1996/blog:${DRONE_BUILD_NUMBER}
 
 trigger:
   branch:
