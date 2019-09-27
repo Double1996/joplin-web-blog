@@ -48,6 +48,8 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+      - name: blog_data
+        path: /var/blog/
     environment:
       USERNAME:
         from_secret: docker_username
@@ -60,7 +62,7 @@ steps:
       - docker pull hub.tencentyun.com/double1996/blog:54
       #      - docker-compose up -d
       - docker rm -f blog || true
-      - docker run -d --name blog -p 48888:8081 -v /etc/blog/config.yml:/app/deployments/config.yml -v /etc/blog/blog.db:/app/blog.db hub.tencentyun.com/double1996/blog:54
+      - docker run -d --name blog -p 48888:8081 -v /var/blog/config.yml:/app/deployments/config.yml -v /var/blog/blog.db:/app/blog.db hub.tencentyun.com/double1996/blog:54
 
 trigger:
   branch:
@@ -69,8 +71,9 @@ trigger:
     - push
 
 volumes:
-  - name: deps
-    temp: {}
+  - name: blog_data
+    host:
+      path: /var/blog/
   - name: docker_sock
     host:
       path: /var/run/docker.sock
