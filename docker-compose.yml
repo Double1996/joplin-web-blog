@@ -22,12 +22,13 @@ services:
       - DRONE_SECRET=ok
 
   joplin-server:
-    image: hub.tencentyun.com/double1996/blog:last
+    image: hub.tencentyun.com/double1996/blog:latest
     ports:
       - 41184:8081
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/drone:/data
+      - /etc/blog/config.yml:/app/bin/deployments/config.yml
+      - /etc/blog/blog.db:/app/bin/blog.db
     restart: always
 #    environment:
 
