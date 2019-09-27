@@ -16,35 +16,35 @@ steps:
   #    commands:
   #      - go test -mod=vendor
 
-  - name: build
-    image: golang:1.12
-    volumes:
-      - name: deps
-        path: /go
-    environment:
-      GO111MODULE: on
-      GOPROXY: https://goproxy.io
-      GOOS: linux
-      GOARCH: amd64
-    commands:
-      - go build -mod=vendor -v -a -o bin/server_exec main.go
-
-  - name: publish
-    image: plugins/docker
-    settings:
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      repo: hub.tencentyun.com/double1996/blog
-      registry: hub.tencentyun.com
-      dockerfile: ./Dockerfile
-      tags:
-        - "${DRONE_BUILD_NUMBER}"
-        - "latest"
+#  - name: build
+#    image: golang:1.12
+#    volumes:
+#      - name: deps
+#        path: /go
+#    environment:
+#      GO111MODULE: on
+#      GOPROXY: https://goproxy.io
+#      GOOS: linux
+#      GOARCH: amd64
+#    commands:
+#      - go build -mod=vendor -v -a -o bin/server_exec main.go
+#
+#  - name: publish
+#    image: plugins/docker
+#    settings:
+#      username:
+#        from_secret: docker_username
+#      password:
+#        from_secret: docker_password
+#      repo: hub.tencentyun.com/double1996/blog
+#      registry: hub.tencentyun.com
+#      dockerfile: ./Dockerfile
+#      tags:
+#        - "${DRONE_BUILD_NUMBER}"
+#        - "latest"
 
   - name: deploy
-    image: docker:latest
+    image: docker/compose
     volume:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -56,7 +56,8 @@ steps:
         from_secret: blog_port
     commands:
       - docker login --username=$USERNAME --password=$PASSWORD hub.tencentyun.com
-      - docker pull hub.tencentyun.com/double1996/blog:${DRONE_BUILD_NUMBER}
+      - docker pull hub.tencentyun.com/double1996/blog:last
+#      - docker-compose up -d
       - docker rm -f blog || true
       - docker run -d --name blog -p 8888:$blog_port hub.tencentyun.com/double1996/blog:${DRONE_BUILD_NUMBER}
 
