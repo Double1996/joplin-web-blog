@@ -31,4 +31,8 @@ services:
       - /etc/blog/blog.db:/app/blog.db
     restart: always
 
+#  nginx:
+#    image: nginx:1.6
+
+
 
