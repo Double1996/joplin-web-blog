@@ -12,6 +12,7 @@ services:
     restart: always
     environment:
       - DRONE_OPEN=true
+      - DRONE_USER_CREATE=username:double1996,admin:true
       - DRONE_GITHUB_SERVER=https://github.com
       - DRONE_GITHUB_CLIENT_ID=${DRONE_GITHUB_CLIENT_ID}
       - DRONE_GITHUB_CLIENT_SECRET=${DRONE_GITHUB_CLIENT_SECRET}
