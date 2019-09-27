@@ -67,8 +67,8 @@ trigger:
     - push
 
 volumes:
-#  - name: deps
-#    temp: {}
+  - name: deps
+    temp: {}
   - name: docker_sock
     host:
       path: /var/run/docker.sock
