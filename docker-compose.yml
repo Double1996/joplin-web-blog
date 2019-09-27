@@ -30,6 +30,5 @@ services:
       - /etc/blog/config.yml:/app/deployments/config.yml
       - /etc/blog/blog.db:/app/blog.db
     restart: always
-#    environment:
 
 
