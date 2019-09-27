@@ -21,20 +21,13 @@ services:
       - DRONE_SECRET=ok
 
   joplin-server:
-    image: node:8
+    image: hub.tencentyun.com/double1996/blog:last
     ports:
-      - 41184:41184
+      - 41184:8081
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/drone:/data
     restart: always
-    environment:
-      - DRONE_OPEN=true
-      - DRONE_GITHUB_SERVER=https://github.com
-      - DRONE_GITHUB_CLIENT_ID=${DRONE_GITHUB_CLIENT_ID}
-      - DRONE_GITHUB_CLIENT_SECRET=${DRONE_GITHUB_CLIENT_SECRET}
-      - DRONE_GIT_ALWAYS_AUTH=false
-      - DRONE_SERVER_HOST=${DRONE_HOST}
-      - DRONE_LOGS_DEBUG=true
-      - DRONE_SECRET=ok
+#    environment:
+
 
