@@ -27,8 +27,8 @@ services:
       - 41185:8081
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/blog/config.yml:/app/bin/deployments/config.yml
-      - /etc/blog/blog.db:/app/bin/blog.db
+      - /etc/blog/config.yml:/app/deployments/config.yml
+      - /etc/blog/blog.db:/app/blog.db
     restart: always
 #    environment:
 
