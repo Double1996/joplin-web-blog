@@ -45,7 +45,7 @@ steps:
 
   - name: deploy
     image: docker
-    volumes:
+    volume:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       USERNAME:
