@@ -45,9 +45,8 @@ steps:
 
   - name: deploy
     image: docker/compose:1.24.0
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
+    volume:
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       USERNAME:
         from_secret: docker_username
