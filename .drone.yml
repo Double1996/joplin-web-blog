@@ -45,8 +45,9 @@ steps:
 
   - name: deploy
     image: docker/compose:1.24.0
-    volume:
-      - /var/run/docker.sock:/var/run/docker.sock
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
     environment:
       USERNAME:
         from_secret: docker_username
@@ -56,7 +57,7 @@ steps:
         from_secret: blog_port
     commands:
 #      - docker login --username=$USERNAME --password=$PASSWORD hub.tencentyun.com &&  docker pull hub.tencentyun.com/double1996/blog:lastest
-      - docker-compose up -d
+      - up -d -f ./docker-compose.yml
 #      - docker rm -f blog || true
 #      - docker run -d --name blog -p 8888:$blog_port hub.tencentyun.com/double1996/blog:${DRONE_BUILD_NUMBER}
 
@@ -69,4 +70,7 @@ trigger:
 volumes:
   - name: deps
     temp: {}
+  - name: docker_sock
+    host:
+      path: /var/run/docker.sock
 
