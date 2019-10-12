@@ -16,12 +16,13 @@ services:
       - DRONE_GITHUB_SERVER=https://github.com
       - DRONE_GITHUB_CLIENT_ID=${DRONE_GITHUB_CLIENT_ID}
       - DRONE_GITHUB_CLIENT_SECRET=${DRONE_GITHUB_CLIENT_SECRET}
-      - DRONE_GIT_ALWAYS_AUTH=false
+      - DRONE_GIT_ALWAYS_AUTH=fals- DRONE_LOGS_DEBUG=true
+  e
       - DRONE_SERVER_HOST=${DRONE_HOST}
       - DRONE_LOGS_DEBUG=true
       - DRONE_SECRET=ok
 
-  joplin-server:
+  blog:
     image: hub.tencentyun.com/double1996/blog:54
     ports:
       - 41185:8081
@@ -31,8 +32,10 @@ services:
       - /etc/blog/blog.db:/app/blog.db
     restart: always
 
-#  nginx:
-#    image: nginx:1.6
+  nginx:
+    image: nginx:1.6
+    ports:
+      - 80:80
 
 
 

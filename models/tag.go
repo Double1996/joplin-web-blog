@@ -3,10 +3,9 @@ package models
 import "strconv"
 
 type Tag struct {
-	Name       string `json:"name"`
-	CreatedBy  string `json:"created_by"`
-	ModifiedBy string `json:"modified_by"`
-	State      int    `json:"state"`
+	BaseModel
+	Name  string `json:"name"`
+	State int    `json:"state"`
 }
 
 func ListTagsByPostID(id string) (tags []*Tag, err error) {

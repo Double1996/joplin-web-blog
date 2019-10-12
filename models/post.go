@@ -35,9 +35,15 @@ func ListAllPost(tag string) ([]*Post, error) {
 	return _listPost(tag, true, 0, 0)
 }
 
+func GetResumePost() (*Post, error) {
+	var post Post
+	err = DB.First(&post, "title = ?", "Resume").Error
+	return &post, err
+}
+
 func _listPost(tag string, published bool, pageIndex, pageSize int) (posts []*Post, err error) {
 	if len(tag) >= 0 {
-		//_, err := strconv.ParseUint(tag, 10, 64)
+		_, err := strconv.ParseUint(tag, 10, 64)
 		if err != nil {
 			return nil, err
 		}
@@ -59,6 +65,8 @@ func _listPost(tag string, published bool, pageIndex, pageSize int) (posts []*Po
 				posts = append(posts, &post)
 			}
 		}
+	} else {
+
 	}
 	return
 }

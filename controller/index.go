@@ -26,5 +26,12 @@ func Home(c *gin.Context) {
 }
 
 func Resume(c *gin.Context) {
-	c.HTML(http.StatusOK, "index/resume.html", gin.H{})
+	resume, err := models.GetResumePost()
+	if err != nil || resume == nil {
+		Handle404(c)
+		return
+	}
+	c.HTML(http.StatusOK, "index/resume.html", gin.H{
+		"post": resume,
+	})
 }
