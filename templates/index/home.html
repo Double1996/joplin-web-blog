@@ -8,7 +8,7 @@
             padding-left: 0;
         }
     </style>
-    <link rel="stylesheet" href="/static/css/hack.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
 
     <div class="container">
         {{if .message}}
@@ -16,13 +16,13 @@
                 <a href="#" class="alert-link">{{.message}}</a>
             </div>
         {{end}}
-        <div class="snowframe">
+        <section>
             <div class="grid">
-                <div class="cell -3of12 content">
-                    <img src="/static/img/avatar.jpeg" alt="My Avatar">
-                    <br/>
-                    <a href="/" class="justify-content-center">forrestshuang@gmail.com</a>
-                </div>
+{{/*                <div class="cell -3of12 content">*/}}
+{{/*                    <img src="/static/img/avatar.jpeg" alt="My Avatar">*/}}
+{{/*                    <br/>*/}}
+{{/*                    <a href="/" class="justify-content-center">forrestshuang@gmail.com</a>*/}}
+{{/*                </div>*/}}
                 <div class="cell -9of12 content">
                     <h1>Forrest Double</h1>
                     <h4>Web and Backend Services Full Stack Developer</h4>
@@ -37,7 +37,7 @@
                     <h5>Last Posts</h5>
                     <ul>
                         {{range $postvalue:=.posts}}
-                            <li>{{ dataFormat $postvalue.CreatedTime "06-01-02 15:04" }} - <a
+                            <li>{{ dateFormat $postvalue.CreatedTime "06-01-02 15:04" }} - <a
                                         href="/posts/{{$postvalue.ID}}">{{ $postvalue.Title }}</a>
                             </li>
                         {{end}}
@@ -67,8 +67,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-
     {{template "footer.html" .}}
 {{ end }}

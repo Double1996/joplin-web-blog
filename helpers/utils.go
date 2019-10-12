@@ -24,6 +24,10 @@ func GetCurrentDirectory() string {
 	return strings.Replace(dir, "\\", "/", -1)
 }
 
-func TimeStramp2() {
-
+func Truncate(s string, n int) string {
+	runes := []rune(s)
+	if len(runes) > n {
+		return string(runes[:n])
+	}
+	return s
 }

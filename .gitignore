@@ -21,3 +21,4 @@ bin/
 deployments/config.yml
 net.sh
 *.db
+tmp

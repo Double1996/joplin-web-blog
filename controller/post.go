@@ -27,7 +27,7 @@ func PostGetContextByID(c *gin.Context) {
 
 	}
 	//tags, _ := models.GetPostByID(id)
-	c.HTML(http.StatusOK, "post/index.html", gin.H{
+	c.HTML(http.StatusOK, "post/display.html", gin.H{
 		"post": post,
 		//"tags": tags,
 	})

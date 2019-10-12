@@ -21,6 +21,11 @@ func Substring(source string, start, end int) string {
 	return string(rs[start:end])
 }
 
-func Truncate() {
+func IsOdd(number int) bool {
+	return !IsEven(number)
+}
 
+// 判断数字是否是偶数
+func IsEven(number int) bool {
+	return number%2 == 0
 }

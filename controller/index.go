@@ -1,9 +1,10 @@
 package controller
 
 import (
+	"net/http"
+
 	"github.com/double1996/joplin-web-blog/models"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func Home(c *gin.Context) {

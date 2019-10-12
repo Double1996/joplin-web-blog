@@ -40,8 +40,11 @@ func main() {
 
 func setTemplate(engine *gin.Engine) {
 	funcMap := template.FuncMap{
-		"dataFormat": helpers.DateFormat,
+		"dateFormat": helpers.DateFormat,
 		"substring":  helpers.Substring,
+		"truncate":   helpers.Truncate,
+		"isOdd":      helpers.IsOdd,
+		"isEven":     helpers.IsEven,
 	}
 	engine.SetFuncMap(funcMap)
 	engine.LoadHTMLGlob("./templates/**/*")

@@ -1,6 +1,37 @@
 {{define "header.html"}}
-    <header class="col-md-offset-3 col-lg-offset-3 col-xl-offset-3">
-        <p><a href="/">Double's Program World</a> - <a href="/posts">Blog</a> - <a href="/contact">Contact</a> - <a
-                    href="/resume">Resume</a> - <a href="/talks">Talks</a> | <a href="http://github.com/double1996">Github</a>
-    </header>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <div class="navbar-brand" >Double's Program World</div>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/posts">Posts</a>
+                    </li>
+                    <li>
+                        <a href="/resume">Resume</a>
+                    </li>
+                    <li>
+                        <a href="/rss" target="_blank">Talks</a>
+                    </li>
+                    <li>
+                        <a href="/subscribe">Subscribe</a>
+                    </li>
+                </ul>
+
+                <ul class="pull-right nav navbar-nav">
+                    <ul class="nav navbar-nav">
+                        {{if .user}}
+                            <li><a href="/logout">Github Logout</a></li>
+                        {{else}}
+                            <li><a href="/auth/github">Github Login</a></li>
+                        {{end}}
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </nav>
 {{end}}
