@@ -16,32 +16,32 @@ steps:
   #    commands:
   #      - go test -mod=vendor
 
-    - name: build
-      image: golang:1.12
-      volumes:
-        - name: deps
-          path: /go
-      environment:
-        GO111MODULE: on
-        GOPROXY: https://goproxy.io
-        GOOS: linux
-        GOARCH: amd64
-      commands:
-        - go build -mod=vendor -v -o bin/server_exec main.go
+  - name: build
+    image: golang:1.12
+    volumes:
+      - name: deps
+        path: /go
+    environment:
+      GO111MODULE: on
+      GOPROXY: https://goproxy.io
+      GOOS: linux
+      GOARCH: amd64
+    commands:
+      - go build -mod=vendor -v -o bin/server_exec main.go
 
-    - name: publish
-      image: plugins/docker
-      settings:
-        username:
-          from_secret: docker_username
-        password:
-          from_secret: docker_password
-        repo: hub.tencentyun.com/double1996/blog
-        registry: hub.tencentyun.com
-        dockerfile: ./Dockerfile
-        tags:
-          - "${DRONE_BUILD_NUMBER}"
-          - "latest"
+  - name: publish
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: hub.tencentyun.com/double1996/blog
+      registry: hub.tencentyun.com
+      dockerfile: ./Dockerfile
+      tags:
+        - "${DRONE_BUILD_NUMBER}"
+        - "latest"
 
   - name: deploy
     image: docker/compose:1.24.0
