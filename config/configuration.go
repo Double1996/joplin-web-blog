@@ -31,6 +31,7 @@ type JoplinConfig struct {
 	Token string
 	Host  string
 	Port  string
+	Cron  string
 }
 
 type Configuration struct {

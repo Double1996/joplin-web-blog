@@ -15,12 +15,6 @@ type Post struct {
 	CommentTotal int        `gorm:"-"` // count of comment
 }
 
-type postTag struct {
-	BaseModel
-	PostID uint
-	TagID  uint
-}
-
 func GetPostByID(id string) (*Post, error) {
 	pid, err := strconv.ParseUint(id, 10, 64)
 	if err != nil {
@@ -31,8 +25,8 @@ func GetPostByID(id string) (*Post, error) {
 	return &post, err
 }
 
-func ListAllPost(tag string) ([]*Post, error) {
-	return _listPost(tag, true, 0, 0)
+func ListAllPost(tag string, pageIndex, pageSize int) ([]*Post, error) {
+	return _listPost(tag, true, pageIndex, pageSize)
 }
 
 func GetResumePost() (*Post, error) {
@@ -42,7 +36,7 @@ func GetResumePost() (*Post, error) {
 }
 
 func _listPost(tag string, published bool, pageIndex, pageSize int) (posts []*Post, err error) {
-	if len(tag) >= 0 {
+	if len(tag) > 0 {
 		_, err := strconv.ParseUint(tag, 10, 64)
 		if err != nil {
 			return nil, err
@@ -66,7 +60,7 @@ func _listPost(tag string, published bool, pageIndex, pageSize int) (posts []*Po
 			}
 		}
 	} else {
-
+		err = DB.Order("id desc").Find(&posts).Error
 	}
 	return
 }
@@ -74,6 +68,10 @@ func _listPost(tag string, published bool, pageIndex, pageSize int) (posts []*Po
 func (p *Post) Insert() error {
 	return DB.Where(Post{Title: p.Title}).FirstOrCreate(&p).Error // TODO: create or update
 }
+
+// func (p *Post) InsertOrUpdate() error {
+// 	// DB.First
+// }
 
 func (p *Post) UpdateView() error {
 	return DB.Model(p).Updates(map[string]interface{}{

@@ -1,73 +1,121 @@
 {{ define "index/home.html"}}
     {{template "index/base.html" .}}
 
-    <style>
-        img {
-            max-width: 100%;
-            padding: 2em;
-            padding-left: 0;
-        }
-    </style>
-    <link rel="stylesheet" href="/static/css/base.css" />
-
-    <div class="container">
-        {{if .message}}
-            <div class="alert alert-success" role="alert">
-                <a href="#" class="alert-link">{{.message}}</a>
-            </div>
-        {{end}}
-        <section>
-            <div class="grid">
-{{/*                <div class="cell -3of12 content">*/}}
-{{/*                    <img src="/static/img/avatar.jpeg" alt="My Avatar">*/}}
-{{/*                    <br/>*/}}
-{{/*                    <a href="/" class="justify-content-center">forrestshuang@gmail.com</a>*/}}
-{{/*                </div>*/}}
-                <div class="cell -9of12 content">
-                    <h1>Forrest Double</h1>
-                    <h4>Web and Backend Services Full Stack Developer</h4>
-                    <h5>Skills</h5>
-                    <ul>
-                        <li>Go == Python > JavaScript >= Ruby >= Java > C/C++</li>
-                        <li>Docker K8s Service Mesh</li>
-                        <li>Go/Python Backend  & Vue.js  </li>
-                        <li>AI & Machine Learning</li>
-                    </ul>
-
-                    <h5>Last Posts</h5>
-                    <ul>
-                        {{range $postvalue:=.posts}}
-                            <li>{{ dateFormat $postvalue.CreatedTime "06-01-02 15:04" }} - <a
-                                        href="/posts/{{$postvalue.ID}}">{{ $postvalue.Title }}</a>
+    <div class="container main">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="jumbotron">
+                    <h1>
+                        Hello, world!
+                    </h1>
+                    <p>
+                        This is a template for a simple marketing or informational website. It includes a large callout
+                        called the hero unit and three supporting pieces of content. Use it as a starting point to
+                        create something more unique.
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-large" href="#">Learn more</a>
+                    </p>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-8 column">
+                        <span class="label label-success">标签</span>
+                        <div class="row clearfix">
+                            <div class="col-md-4 column">
+                                <h2>
+                                    Heading
+                                </h2>
+                                <p>
+                                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
+                                    commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+                                    Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+                                </p>
+                                <p>
+                                    <a class="btn" href="#">View details »</a>
+                                </p>
+                            </div>
+                            <div class="col-md-4 column">
+                                <h2>
+                                    Heading
+                                </h2>
+                                <p>
+                                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
+                                    commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+                                    Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+                                </p>
+                                <p>
+                                    <a class="btn" href="#">View details »</a>
+                                </p>
+                            </div>
+                            <div class="col-md-4 column">
+                                <h2>
+                                    Heading
+                                </h2>
+                                <p>
+                                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
+                                    commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+                                    Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+                                </p>
+                                <p>
+                                    <a class="btn" href="#">View details »</a>
+                                </p>
+                            </div>
+                        </div>
+                        <ul class="pagination">
+                            <li>
+                                <a href="#">Prev</a>
                             </li>
-                        {{end}}
-                    </ul>
-
-                    <h5>Highlighted Projects</h5>
-                    <ul>
-                        <li><a href="https://github.com/Xe/PonyAPI">PonyAPI</a> - My Little Pony: Friendship is Magic
-                            Episode information API
-                        </li>
-                        <li><a href="https://github.com/PonyvilleFM/aura">Aura</a> - PonyvilleFM live DJ recording bot
-                        </li>
-                        <li><a href="https://github.com/PonyvilleFM/aura">Aura</a> - PonyvilleFM live DJ recording bot
-                        </li>
-
-                        <li><a href="https://github.com/Xe/site">This website</a> - The backend and templates for this
-                            website
-                        </li>
-                    </ul>
-
-                    <h5>Quick Links</h5>
-                    <ul>
-                        <li><a href="https://github.com/double1996">GitHub</a>
-                        </li>
-                        <li><a href="https://facebook.com/double1996">Facebook</a>
-                        </li>
-                    </ul>
+                            <li>
+                                <a href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                            <li>
+                                <a href="#">3</a>
+                            </li>
+                            <li>
+                                <a href="#">4</a>
+                            </li>
+                            <li>
+                                <a href="#">5</a>
+                            </li>
+                            <li>
+                                <a href="#">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 column">
+                        <ol>
+                            <li>
+                                Lorem ipsum dolor sit amet
+                            </li>
+                            <li>
+                                Consectetur adipiscing elit
+                            </li>
+                            <li>
+                                Integer molestie lorem at massa
+                            </li>
+                            <li>
+                                Facilisis in pretium nisl aliquet
+                            </li>
+                            <li>
+                                Nulla volutpat aliquam velit
+                            </li>
+                            <li>
+                                Faucibus porta lacus fringilla vel
+                            </li>
+                            <li>
+                                Aenean sit amet erat nunc
+                            </li>
+                            <li>
+                                Eget porttitor lorem
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
     {{template "footer.html" .}}
 {{ end }}

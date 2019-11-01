@@ -4,10 +4,18 @@ import (
 	"github.com/double1996/joplin-web-blog/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 func PostsIndex(c *gin.Context) {
-	posts, err := models.ListAllPost("")
+	var (
+		pageIndex int
+		pageSize  int
+		page      string
+	)
+	page = c.Query("page")
+	pageIndex, _ = strconv.Atoi(page)
+	posts, err := models.ListAllPost("", pageIndex, pageSize)
 	if err != nil {
 
 	}

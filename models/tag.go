@@ -8,6 +8,12 @@ type Tag struct {
 	State int    `json:"state"`
 }
 
+type postTag struct {
+	BaseModel
+	PostID uint
+	TagID  uint
+}
+
 func ListTagsByPostID(id string) (tags []*Tag, err error) {
 	pid, err := strconv.ParseUint(id, 10, 64)
 	if err != nil {

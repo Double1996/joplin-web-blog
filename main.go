@@ -7,10 +7,10 @@ import (
 	"github.com/double1996/joplin-web-blog/pkg/joplin"
 	"github.com/double1996/joplin-web-blog/pkg/logger"
 	"github.com/double1996/joplin-web-blog/routers"
-	"go.uber.org/zap"
-	"html/template"
-
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
+	"gopkg.in/robfig/cron.v2"
+	"html/template"
 )
 
 func init() {
@@ -33,7 +33,9 @@ func main() {
 	}
 	defer db.Close()
 
-	joplin.SyncJoplinBlog()
+	c := cron.New()
+	c.AddFunc(config.Conf.Joplin.Cron, joplin.SyncJoplinBlog)
+	c.Start()
 
 	engine.Run(":" + config.Conf.Server.Port)
 }
