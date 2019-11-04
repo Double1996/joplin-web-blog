@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM golang:1.12
 WORKDIR /app
 COPY ./bin/server_exec ./bin/server_exec
 COPY ./templates  ./templates
