@@ -1,13 +1,20 @@
 database:
-  driver: "sqlite"
-  dbname: "database_name"
-  username: "user"
-  password: "password"
-  host: "localhost"
-  port: "5432"
+  driver: ""
+  dbname: ""
+  username: ""
+  password: ""
+  host: ""
+  port: ""
 
 server:
-  port: "8081"
+  port: ""
 
 log:
-  dir: "logs"
+  dir: ""
+
+joplin:
+  host: ""
+  port: ""
+  token: ""
+  blog_tag: ""
+  cron: ""
