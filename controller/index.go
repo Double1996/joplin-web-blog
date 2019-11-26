@@ -31,7 +31,7 @@ func Resume(c *gin.Context) {
 		Handle404(c)
 		return
 	}
-	c.HTML(http.StatusOK, "index/resume.html", gin.H{
+	c.HTML(http.StatusOK, "post/display.html", gin.H{
 		"post": resume,
 	})
 }

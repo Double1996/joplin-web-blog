@@ -48,7 +48,7 @@ func _listPost(tag string, published bool, pageIndex, pageSize int) (posts []*Po
 			//} else {
 			//	rows, err = DB.Raw("select p.* from posts p inner join post_tags pt on p.id = pt.post_id where pt.tag_id = ? and p.is_published = ? order by created_at desc", tagID, true).Rows()
 			//}
-			rows, err = DB.Raw("select * from posts").Rows()
+			rows, err = DB.Raw("select * from posts where title != ?", "Resume").Rows()
 			if err != nil {
 				return nil, err
 			}

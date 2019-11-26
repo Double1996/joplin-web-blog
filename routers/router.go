@@ -20,8 +20,8 @@ func InitRouter(router *gin.Engine) {
 	//router.GET("/signin", controllers.SigninGet)
 	//router.POST("/signin", controllers.SigninPost)
 	//router.GET("/logout", controllers.LogoutGet)
-	//router.GET("/oauth2callback", controllers.Oauth2Callback)
-	//router.GET("/auth/:authType", controllers.AuthGet)
+	router.GET("/oauth2callback", controller.Oauth2Callback)
+	router.GET("/auth/:authType", controller.AuthGet)
 
 	router.NoRoute(controller.Handle404)
 }
