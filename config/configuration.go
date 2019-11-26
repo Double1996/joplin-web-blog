@@ -22,6 +22,15 @@ type DataBaseConfiguration struct {
 	Port     string
 }
 
+type GithubConfiguration struct {
+	GithubClientId     string `yaml:"github_clientid"`
+	GithubClientSecret string `yaml:"github_clientsecret"`
+	GithubAuthUrl      string `yaml:"github_authurl"`
+	GithubRedirectURL  string `yaml:"github_redirecturl"`
+	GithubTokenUrl     string `yaml:"github_tokenurl"`
+	GithubScope        string `yaml:"github_scope"`
+}
+
 type LogConfiguration struct {
 	Dir    string
 	Access bool // request website log
@@ -39,6 +48,7 @@ type Configuration struct {
 	DataBase DataBaseConfiguration
 	Log      LogConfiguration
 	Joplin   JoplinConfig
+	Github   GithubConfiguration
 }
 
 func InitConfig() {

@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/snluu/uuid"
 )
 
 func Panicf(format string, values ...interface{}) {
@@ -30,4 +32,8 @@ func Truncate(s string, n int) string {
 		return string(runes[:n])
 	}
 	return s
+}
+
+func UUID() string {
+	return uuid.Rand().Hex()
 }

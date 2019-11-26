@@ -3,17 +3,15 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-	"strconv"
-
-	"github.com/alimoeeny/gooauth2"
+	oauth "github.com/alimoeeny/gooauth2"
+	"github.com/double1996/joplin-web-blog/config"
+	"github.com/double1996/joplin-web-blog/helpers"
+	"github.com/double1996/joplin-web-blog/models"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-	"github.com/wangsongyan/wblog/helpers"
-	"github.com/double1996/joplin-web-blog/models"
-	"github.com/wangsongyan/wblog/system"
+	"io/ioutil"
+	"net/http"
 )
 
 type GithubUserInfo struct {
@@ -64,9 +62,6 @@ func LogoutGet(c *gin.Context) {
 	c.Redirect(http.StatusSeeOther, "/signin")
 }
 
-
-
-
 func AuthGet(c *gin.Context) {
 	authType := c.Param("authType")
 
@@ -79,7 +74,7 @@ func AuthGet(c *gin.Context) {
 	authurl := "/signin"
 	switch authType {
 	case "github":
-		authurl = fmt.Sprintf(system.GetConfiguration().GithubAuthUrl, system.GetConfiguration().GithubClientId, uuid)
+		authurl = fmt.Sprintf("http://www.double1996.com/oauth2callback", "07624020267fb9c0e9ff", uuid)
 	case "qq":
 	case "wechat":
 	default:
@@ -108,7 +103,6 @@ func Oauth2Callback(c *gin.Context) {
 	// exchange accesstoken by code
 	token, err := exchangeTokenByCode(code)
 	if err != nil {
-		seelog.Error(err)
 		c.Redirect(http.StatusMovedPermanently, "/signin")
 		return
 	}
@@ -116,7 +110,6 @@ func Oauth2Callback(c *gin.Context) {
 	//get github userinfo by accesstoken
 	userInfo, err = getGithubUserInfoByAccessToken(token)
 	if err != nil {
-		seelog.Error(err)
 		c.Redirect(http.StatusMovedPermanently, "/signin")
 		return
 	}
@@ -171,11 +164,11 @@ func exchangeTokenByCode(code string) (accessToken string, err error) {
 		token     *oauth.Token
 	)
 	transport = &oauth.Transport{Config: &oauth.Config{
-		ClientId:     system.GetConfiguration().GithubClientId,
-		ClientSecret: system.GetConfiguration().GithubClientSecret,
-		RedirectURL:  system.GetConfiguration().GithubRedirectURL,
-		TokenURL:     system.GetConfiguration().GithubTokenUrl,
-		Scope:        system.GetConfiguration().GithubScope,
+		ClientId:     config.Conf.Github.GithubClientId,
+		ClientSecret: config.Conf.Github.GithubClientSecret,
+		RedirectURL:  config.Conf.Github.GithubRedirectURL,
+		TokenURL:     config.Conf.Github.GithubTokenUrl,
+		Scope:        config.Conf.Github.GithubScope,
 	}}
 	token, err = transport.Exchange(code)
 	if err != nil {
@@ -185,7 +178,7 @@ func exchangeTokenByCode(code string) (accessToken string, err error) {
 	// cache token
 	tokenCache := oauth.CacheFile("./request.token")
 	if err := tokenCache.PutToken(token); err != nil {
-		seelog.Error(err)
+		//seelog.Error(err)
 	}
 	return
 }
@@ -210,152 +203,152 @@ func getGithubUserInfoByAccessToken(token string) (*GithubUserInfo, error) {
 	return &userInfo, err
 }
 
-func ProfileGet(c *gin.Context) {
-	sessionUser, exists := c.Get(CONTEXT_USER_KEY)
-	if exists {
-		c.HTML(http.StatusOK, "admin/profile.html", gin.H{
-			"user":     sessionUser,
-			"comments": models.MustListUnreadComment(),
-		})
-	}
-}
+//func ProfileGet(c *gin.Context) {
+//	sessionUser, exists := c.Get(CONTEXT_USER_KEY)
+//	if exists {
+//		c.HTML(http.StatusOK, "admin/profile.html", gin.H{
+//			"user":     sessionUser,
+//			"comments": models.MustListUnreadComment(),
+//		})
+//	}
+//}
 
-func ProfileUpdate(c *gin.Context) {
-	var (
-		err error
-		res = gin.H{}
-	)
-	defer writeJSON(c, res)
-	avatarUrl := c.PostForm("avatarUrl")
-	nickName := c.PostForm("nickName")
-	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
-	user, ok := sessionUser.(*models.User)
-	if !ok {
-		res["message"] = "server interval error"
-		return
-	}
-	err = user.UpdateProfile(avatarUrl, nickName)
-	if err != nil {
-		res["message"] = err.Error()
-		return
-	}
-	res["succeed"] = true
-	res["user"] = models.User{AvatarUrl: avatarUrl, NickName: nickName}
-}
-
-func BindEmail(c *gin.Context) {
-	var (
-		err error
-		res = gin.H{}
-	)
-	defer writeJSON(c, res)
-	email := c.PostForm("email")
-	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
-	user, ok := sessionUser.(*models.User)
-	if !ok {
-		res["message"] = "server interval error"
-		return
-	}
-	if len(user.Email) > 0 {
-		res["message"] = "email have bound"
-		return
-	}
-	_, err = models.GetUserByUsername(email)
-	if err == nil {
-		res["message"] = "email have be registered"
-		return
-	}
-	err = user.UpdateEmail(email)
-	if err != nil {
-		res["message"] = err.Error()
-		return
-	}
-	res["succeed"] = true
-}
-
-func UnbindEmail(c *gin.Context) {
-	var (
-		err error
-		res = gin.H{}
-	)
-	defer writeJSON(c, res)
-	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
-	user, ok := sessionUser.(*models.User)
-	if !ok {
-		res["message"] = "server interval error"
-		return
-	}
-	if user.Email == "" {
-		res["message"] = "email haven't bound"
-		return
-	}
-	err = user.UpdateEmail("")
-	if err != nil {
-		res["message"] = err.Error()
-		return
-	}
-	res["succeed"] = true
-}
-
-func UnbindGithub(c *gin.Context) {
-	var (
-		err error
-		res = gin.H{}
-	)
-	defer writeJSON(c, res)
-	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
-	user, ok := sessionUser.(*models.User)
-	if !ok {
-		res["message"] = "server interval error"
-		return
-	}
-	if user.GithubLoginId == "" {
-		res["message"] = "github haven't bound"
-		return
-	}
-	user.GithubLoginId = ""
-	err = user.UpdateGithubUserInfo()
-	if err != nil {
-		res["message"] = err.Error()
-		return
-	}
-	res["succeed"] = true
-}
-
-func UserIndex(c *gin.Context) {
-	users, _ := models.ListUsers()
-	user, _ := c.Get(CONTEXT_USER_KEY)
-	c.HTML(http.StatusOK, "admin/user.html", gin.H{
-		"users":    users,
-		"user":     user,
-		"comments": models.MustListUnreadComment(),
-	})
-}
-
-func UserLock(c *gin.Context) {
-	var (
-		err  error
-		_id  uint64
-		res  = gin.H{}
-		user *models.User
-	)
-	defer writeJSON(c, res)
-	id := c.Param("id")
-	_id, err = strconv.ParseUint(id, 10, 64)
-	if err != nil {
-		res["message"] = err.Error()
-		return
-	}
-	user, err = models.GetUser(uint(_id))
-	if err != nil {
-		res["message"] = err.Error()
-		return
-	}
-	user.LockState = !user.LockState
-	err = user.Lock()
-	if err != nil {
-		res["message"] = err.Error()
-		return
-	}
-	res["succeed"] = true
-}
+//func ProfileUpdate(c *gin.Context) {
+//	var (
+//		err error
+//		res = gin.H{}
+//	)
+//	defer writeJSON(c, res)
+//	avatarUrl := c.PostForm("avatarUrl")
+//	nickName := c.PostForm("nickName")
+//	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
+//	user, ok := sessionUser.(*models.User)
+//	if !ok {
+//		res["message"] = "server interval error"
+//		return
+//	}
+//	err = user.UpdateProfile(avatarUrl, nickName)
+//	if err != nil {
+//		res["message"] = err.Error()
+//		return
+//	}
+//	res["succeed"] = true
+//	res["user"] = models.User{AvatarUrl: avatarUrl, NickName: nickName}
+//}
+//
+//func BindEmail(c *gin.Context) {
+//	var (
+//		err error
+//		res = gin.H{}
+//	)
+//	defer writeJSON(c, res)
+//	email := c.PostForm("email")
+//	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
+//	user, ok := sessionUser.(*models.User)
+//	if !ok {
+//		res["message"] = "server interval error"
+//		return
+//	}
+//	if len(user.Email) > 0 {
+//		res["message"] = "email have bound"
+//		return
+//	}
+//	_, err = models.GetUserByUsername(email)
+//	if err == nil {
+//		res["message"] = "email have be registered"
+//		return
+//	}
+//	err = user.UpdateEmail(email)
+//	if err != nil {
+//		res["message"] = err.Error()
+//		return
+//	}
+//	res["succeed"] = true
+//}
+//
+//func UnbindEmail(c *gin.Context) {
+//	var (
+//		err error
+//		res = gin.H{}
+//	)
+//	defer writeJSON(c, res)
+//	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
+//	user, ok := sessionUser.(*models.User)
+//	if !ok {
+//		res["message"] = "server interval error"
+//		return
+//	}
+//	if user.Email == "" {
+//		res["message"] = "email haven't bound"
+//		return
+//	}
+//	err = user.UpdateEmail("")
+//	if err != nil {
+//		res["message"] = err.Error()
+//		return
+//	}
+//	res["succeed"] = true
+//}
+//
+//func UnbindGithub(c *gin.Context) {
+//	var (
+//		err error
+//		res = gin.H{}
+//	)
+//	defer writeJSON(c, res)
+//	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
+//	user, ok := sessionUser.(*models.User)
+//	if !ok {
+//		res["message"] = "server interval error"
+//		return
+//	}
+//	if user.GithubLoginId == "" {
+//		res["message"] = "github haven't bound"
+//		return
+//	}
+//	user.GithubLoginId = ""
+//	err = user.UpdateGithubUserInfo()
+//	if err != nil {
+//		res["message"] = err.Error()
+//		return
+//	}
+//	res["succeed"] = true
+//}
+//
+//func UserIndex(c *gin.Context) {
+//	users, _ := models.ListUsers()
+//	user, _ := c.Get(CONTEXT_USER_KEY)
+//	c.HTML(http.StatusOK, "admin/user.html", gin.H{
+//		"users":    users,
+//		"user":     user,
+//		"comments": models.MustListUnreadComment(),
+//	})
+//}
+//
+//func UserLock(c *gin.Context) {
+//	var (
+//		err  error
+//		_id  uint64
+//		res  = gin.H{}
+//		user *models.User
+//	)
+//	defer writeJSON(c, res)
+//	id := c.Param("id")
+//	_id, err = strconv.ParseUint(id, 10, 64)
+//	if err != nil {
+//		res["message"] = err.Error()
+//		return
+//	}
+//	user, err = models.GetUser(uint(_id))
+//	if err != nil {
+//		res["message"] = err.Error()
+//		return
+//	}
+//	user.LockState = !user.LockState
+//	err = user.Lock()
+//	if err != nil {
+//		res["message"] = err.Error()
+//		return
+//	}
+//	res["succeed"] = true
+//}

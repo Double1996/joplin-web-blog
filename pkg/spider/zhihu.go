@@ -14,7 +14,3 @@ const (
 func postPage() {
 
 }
-
-func login() error {
-	email_regex = ""
-}
