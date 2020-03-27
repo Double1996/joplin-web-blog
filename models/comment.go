@@ -11,3 +11,12 @@ type Comment struct {
 	AvatarUrl string `gorm:"-"`
 	GithubUrl string `gorm:"-"`
 }
+
+// 添加的评论
+func AddComment() {
+}
+
+//
+func DeteleComment() {
+
+}

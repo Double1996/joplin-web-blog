@@ -1,70 +1,70 @@
 {{define "post/display.html"}}
-    {{template "index/base.html" .}}
+{{template "index/base.html" .}}
 
-    <link href="/static/css/blog-post.css" rel="stylesheet">
+<link href="/static/css/blog-post.css" rel="stylesheet">
 
-    <title>Post - {{.post.Title}}</title>
-    <!-- jQuery -->
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<title>Post - {{.post.Title}}</title>
+<!-- jQuery -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Core JavaScript -->
+<link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- github markdown css -->
-    <link rel="stylesheet" href="/static/css/markdown.css"/>
+<!-- github markdown css -->
+<link rel="stylesheet" href="/static/css/markdown.css" />
 
-    <link rel="stylesheet" href="/static/css/base.css"/>
+<link rel="stylesheet" href="/static/css/base.css" />
 
-    <style>
-        .user-image {
-            float: left;
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            margin-right: 10px;
-            margin-top: -2px;
-        }
-    </style>
+<style>
+    .user-image {
+        float: left;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        margin-right: 10px;
+        margin-top: -2px;
+    }
+</style>
 
-    <script>
-        $(document).ready(function () {
-            // markdown parse
-            var md = window.markdownit({
-                html: true
-            });
-            var result = md.render($("#body").text());
-            $("#body").html(result);
-
-            $("#articleDelete").click(function (event) {
-                if (confirm("Are you sure to delete?")) {
-                    articleDelete($("#articleId").text());
-                }
-            });
-
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 100) {
-                    $('#back-to-top').fadeIn();
-                } else {
-                    $('#back-to-top').fadeOut();
-                }
-            });
-
-            // scroll body to 0px on click
-            $('#back-to-top').click(function () {
-                $('#back-to-top').tooltip('hide');
-                $('body,html').animate({
-                    scrollTop: 0
-                }, 800);
-                return false;
-            });
-
-            $('#back-to-top').tooltip('show');
+<script>
+    $(document).ready(function () {
+        // markdown parse
+        var md = window.markdownit({
+            html: true
         });
-    </script>
+        var result = md.render($("#body").text());
+        $("#body").html(result);
 
-    </head>
+        $("#articleDelete").click(function (event) {
+            if (confirm("Are you sure to delete?")) {
+                articleDelete($("#articleId").text());
+            }
+        });
 
-    <body>
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+
+        $('#back-to-top').tooltip('show');
+    });
+</script>
+
+</head>
+
+<body>
 
     {{template "header.html" .}}
 
@@ -82,24 +82,25 @@
                         <!-- show tags -->
                         <tr th:each="tag : ${article.tags}">
                             {{range $key,$value := .post.Tags}}
-                                <a href="/tag/{{$value.ID}}" class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-tag"></span><span
-                                            th:text="' ' + ${tag.name}"> {{$value.Name}}</span>
-                                </a>
+                            <a href="/tag/{{$value.ID}}" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-tag"></span><span th:text="' ' + ${tag.name}">
+                                    {{$value.Name}}</span>
+                            </a>
                             {{end}}
                         </tr><!-- show tags -->
 
                         <!-- display article created time -->
                         <span class="createdTime">
-                            <div class="glyphicon glyphicon-calendar"></div>{{dateFormat .post.CreatedTime "2006-01-02 15:04"}}
+                            <div class="glyphicon glyphicon-calendar"></div>
+                            {{dateFormat .post.CreatedTime "2006-01-02 15:04"}}
                         </span>
 
                         <span class="createdTime">
-                        <div class="glyphicon glyphicon-eye-open"></div>{{.post.View}}&nbsp;&nbsp;
-                    </span>
+                            <div class="glyphicon glyphicon-eye-open"></div>{{.post.View}}&nbsp;&nbsp;
+                        </span>
 
                     </div><!-- display article info -->
-                    <br/>
+                    <br />
 
                     <!-- display aritcle body -->
                     <div id="body">{{.post.Body}}</div>
@@ -110,47 +111,46 @@
                 <comment>
                     <!-- Comment -->
                     {{range .post.Comments}}
-                        <div class="media">
-                            <a class="pull-left" href="{{.GithubUrl}}" target="_blank">
-                                {{if .AvatarUrl}}
-                                    <img class="user-image" src="{{.AvatarUrl}}" alt="">
-                                {{else}}
-                                    <img class="user-image" src="http://placehold.it/64x64" alt="">
-                                {{end}}
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading"><a href="{{.GithubUrl}}" target="_blank">{{.NickName}}</a>
-                                    <small>{{dateFormat .CreatedAt "06-01-02 15:04"}}</small>
-                                </h4>
-                                {{.Content}}
-                            </div>
+                    <div class="media">
+                        <a class="pull-left" href="{{.GithubUrl}}" target="_blank">
+                            {{if .AvatarUrl}}
+                            <img class="user-image" src="{{.AvatarUrl}}" alt="">
+                            {{else}}
+                            <img class="user-image" src="http://placehold.it/64x64" alt="">
+                            {{end}}
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="{{.GithubUrl}}" target="_blank">{{.NickName}}</a>
+                                <small>{{dateFormat .CreatedAt "06-01-02 15:04"}}</small>
+                            </h4>
+                            {{.Content}}
                         </div>
+                    </div>
                     {{end}}
                 </comment>
 
                 <div class="media">
                     {{if not .user}}
-                        <a href="/auth/github">登录发表评论</a>
+                    <a href="/auth/github">登录发表评论</a>
                     {{else}}
-                        <div id="messagebox" class="alert alert-danger" style="display: none;" role="alert"></div>
-                        <form id="commentForm" role="form" action="/visitor/new_comment" method="post">
-                            <input name="postId" type="hidden" value="{{.post.ID}}">
-                            <div class="form-group">
-                                <textarea name="content" class="form-control" id="inputContent"
-                                          placeholder="评论"></textarea>
+                    <div id="messagebox" class="alert alert-danger" style="display: none;" role="alert"></div>
+                    <form id="commentForm" role="form" action="/visitor/new_comment" method="post">
+                        <input name="postId" type="hidden" value="{{.post.ID}}">
+                        <div class="form-group">
+                            <textarea name="content" class="form-control" id="inputContent" placeholder="评论"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input name="verifyCode" class="form-control" placeholder="验证码">
                             </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <input name="verifyCode" class="form-control" placeholder="验证码">
-                                </div>
-                                <div class="col-md-4">
-                                    <img src="/captcha" class="j-verifycode"/>
-                                </div>
+                            <div class="col-md-4">
+                                <img src="/captcha" class="j-verifycode" />
                             </div>
-                            <div class="pull-right">
-                                <button type="submit" class="btn btn-primary">评论</button>
-                            </div>
-                        </form>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">评论</button>
+                        </div>
+                    </form>
                     {{end}}
                 </div>
             </div>
@@ -166,7 +166,7 @@
 
     <!-- code syntax highlighting -->
     <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css" />
     <script>hljs.initHighlightingOnLoad();</script>
 
     <script type="text/javascript">
@@ -196,7 +196,7 @@
         }
     </script>
 
-    </body>
+</body>
 
-    </html>
+</html>
 {{end}}

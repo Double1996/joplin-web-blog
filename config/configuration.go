@@ -43,6 +43,9 @@ type JoplinConfig struct {
 	Cron  string
 }
 
+type EmailConfig struct {
+}
+
 type Configuration struct {
 	Server   ServerConfiguration
 	DataBase DataBaseConfiguration

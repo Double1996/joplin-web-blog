@@ -31,3 +31,7 @@ func ListTagsByPostID(id string) (tags []*Tag, err error) {
 	}
 	return tags, nil
 }
+
+func List() {
+
+}

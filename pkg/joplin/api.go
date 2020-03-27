@@ -17,7 +17,8 @@ type joplinTagRes struct {
 }
 
 type tagNotesRes struct {
-	ID string `json:"id"`
+	ID          string `json:"id"`
+	UpdatedTime int64  `json:"updated_time"`
 }
 
 var client = &http.Client{Timeout: time.Duration(5 * time.Second)}
@@ -43,8 +44,12 @@ func requestBlogTags() (tagsRes []joplinTagRes, err error) {
 	return tagsRes, nil
 }
 
+/**
+通过 blog tag访问的获取到相关的post列表
+根据update_time，来是否更新blog的相关内容
+*/
 func requestPostByTags(id string) (noteRes []tagNotesRes, err error) {
-	reqTagsURL := fmt.Sprintf("http://%s/tags/%s/notes?token=%s&fields=id", config.Conf.Joplin.Host, id, config.Conf.Joplin.Token)
+	reqTagsURL := fmt.Sprintf("http://%s/tags/%s/notes?token=%s&fields=id,updated_time", config.Conf.Joplin.Host, id, config.Conf.Joplin.Token)
 	req, err := http.NewRequest("GET", reqTagsURL, nil)
 	if err != nil {
 		return noteRes, err
@@ -64,8 +69,8 @@ func requestPostByTags(id string) (noteRes []tagNotesRes, err error) {
 	return noteRes, nil
 }
 
-func requestNoteById(id string) {
-	reqTagsURL := fmt.Sprintf("http://%s/notes/%s?token=%s&fields=title,body,created_time,updated_time", config.Conf.Joplin.Host, id, config.Conf.Joplin.Token)
+func requestNoteById(id string) (post models.Post, err error) {
+	reqTagsURL := fmt.Sprintf("http://%s/notes/%s?token=%s&fields=id,title,body,created_time,updated_time", config.Conf.Joplin.Host, id, config.Conf.Joplin.Token)
 	req, err := http.NewRequest("GET", reqTagsURL, nil)
 	if err != nil {
 	}
@@ -77,27 +82,34 @@ func requestNoteById(id string) {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 	}
-	var post models.Post
 	err = json.Unmarshal(body, &post)
 	if err != nil {
 	}
-	err = post.Insert()
-	if err != nil {
-	}
+	return
 }
 
 func SyncJoplinBlog() {
 	tagsRes, err := requestBlogTags()
 	if err != nil {
-
 	}
 	for _, tag := range tagsRes {
-		if tag.Title == "blog" {
+		if tag.Title == "blog" { // TODO: config this tag by user
 			noteRes, err := requestPostByTags(tag.ID)
 			if err != nil {
 			}
 			for _, note := range noteRes {
-				requestNoteById(note.ID)
+				status := models.CheckPostStatus(note.ID, note.UpdatedTime)
+				if status != "noChange" {
+					post, err := requestNoteById(note.ID)
+					if err != nil {
+					}
+					if status == "update" {
+						post.UpdateContent()
+					}
+					if status == "create" {
+						post.Insert()
+					}
+				}
 			}
 		}
 	}

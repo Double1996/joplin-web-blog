@@ -17,7 +17,6 @@ func PostsIndex(c *gin.Context) {
 	pageIndex, _ = strconv.Atoi(page)
 	posts, err := models.ListAllPost("", pageIndex, pageSize)
 	if err != nil {
-
 	}
 	c.HTML(http.StatusOK, "post/list.html", gin.H{
 		"posts": posts, // TODO: need list comments

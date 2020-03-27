@@ -7,6 +7,7 @@ import (
 
 type Post struct {
 	BaseModel
+	JID          string     `json:"id" gorm:"column:jid;unique"` // joplin ID
 	Title        string     // title
 	Body         string     // body
 	View         int        // view count
@@ -69,12 +70,37 @@ func (p *Post) Insert() error {
 	return DB.Where(Post{Title: p.Title}).FirstOrCreate(&p).Error // TODO: create or update
 }
 
-// func (p *Post) InsertOrUpdate() error {
-// 	// DB.First
-// }
+func (p *Post) UpdateContent() error {
+	return DB.Model(&p).Where("jid = ?", p.JID).Updates(map[string]interface{}{
+		"title":        p.Title,
+		"body":         p.Body,
+		"updated_time": p.UpdatedTime,
+	}).Error
+}
 
 func (p *Post) UpdateView() error {
 	return DB.Model(p).Updates(map[string]interface{}{
 		"view": p.View,
 	}).Error
+}
+
+func GetPostByJId(jid string) (*Post, error) {
+	var post Post
+	err := DB.First(&post, "jid = ?", jid).Error
+	return &post, err
+}
+
+//  checkout post need update
+func CheckPostStatus(jid string, updateTime int64) string {
+	var post Post
+	err = DB.Where("jid = ?", jid).First(&post).Error
+	if err != nil {
+		if err.Error() == "record not found" {
+			return "create"
+		}
+	}
+	if updateTime > post.UpdatedTime {
+		return "update"
+	}
+	return "noChange"
 }

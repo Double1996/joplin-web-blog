@@ -11,5 +11,4 @@ func SendMail(c *gin.Context) {
 	//	uid  uint64
 	//	subscriber *models.Subscriber
 	//)
-
 }
