@@ -1,12 +1,15 @@
 # github.com/alimoeeny/gooauth2 v0.0.0-20140214171402-62c620a8c7eb
+## explicit
 github.com/alimoeeny/gooauth2
 # github.com/fsnotify/fsnotify v1.4.7
 github.com/fsnotify/fsnotify
 # github.com/gin-contrib/sessions v0.0.1
+## explicit
 github.com/gin-contrib/sessions
 # github.com/gin-contrib/sse v0.0.0-20190301062529-5545eab6dad3
 github.com/gin-contrib/sse
 # github.com/gin-gonic/gin v1.4.0
+## explicit
 github.com/gin-gonic/gin
 github.com/gin-gonic/gin/binding
 github.com/gin-gonic/gin/internal/json
@@ -21,16 +24,17 @@ github.com/gorilla/securecookie
 github.com/gorilla/sessions
 # github.com/hashicorp/hcl v1.0.0
 github.com/hashicorp/hcl
-github.com/hashicorp/hcl/hcl/printer
 github.com/hashicorp/hcl/hcl/ast
 github.com/hashicorp/hcl/hcl/parser
-github.com/hashicorp/hcl/hcl/token
-github.com/hashicorp/hcl/json/parser
+github.com/hashicorp/hcl/hcl/printer
 github.com/hashicorp/hcl/hcl/scanner
 github.com/hashicorp/hcl/hcl/strconv
+github.com/hashicorp/hcl/hcl/token
+github.com/hashicorp/hcl/json/parser
 github.com/hashicorp/hcl/json/scanner
 github.com/hashicorp/hcl/json/token
 # github.com/jinzhu/gorm v1.9.9
+## explicit
 github.com/jinzhu/gorm
 # github.com/jinzhu/inflection v1.0.0
 github.com/jinzhu/inflection
@@ -41,6 +45,7 @@ github.com/magiconair/properties
 # github.com/mattn/go-isatty v0.0.7
 github.com/mattn/go-isatty
 # github.com/mattn/go-sqlite3 v1.11.0
+## explicit
 github.com/mattn/go-sqlite3
 # github.com/mitchellh/mapstructure v1.1.2
 github.com/mitchellh/mapstructure
@@ -51,8 +56,10 @@ github.com/modern-go/reflect2
 # github.com/pelletier/go-toml v1.2.0
 github.com/pelletier/go-toml
 # github.com/pkg/errors v0.8.0
+## explicit
 github.com/pkg/errors
 # github.com/snluu/uuid v0.0.0-20130306162636-1dd34a9ad6c0
+## explicit
 github.com/snluu/uuid
 # github.com/spf13/afero v1.1.2
 github.com/spf13/afero
@@ -64,6 +71,7 @@ github.com/spf13/jwalterweatherman
 # github.com/spf13/pflag v1.0.3
 github.com/spf13/pflag
 # github.com/spf13/viper v1.4.0
+## explicit
 github.com/spf13/viper
 # github.com/ugorji/go v1.1.4
 github.com/ugorji/go/codec
@@ -72,12 +80,13 @@ go.uber.org/atomic
 # go.uber.org/multierr v1.1.0
 go.uber.org/multierr
 # go.uber.org/zap v1.10.0
+## explicit
 go.uber.org/zap
-go.uber.org/zap/internal/bufferpool
-go.uber.org/zap/zapcore
 go.uber.org/zap/buffer
+go.uber.org/zap/internal/bufferpool
 go.uber.org/zap/internal/color
 go.uber.org/zap/internal/exit
+go.uber.org/zap/zapcore
 # golang.org/x/sys v0.0.0-20190222072716-a9d3bda3a223
 golang.org/x/sys/unix
 # golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2
@@ -86,6 +95,7 @@ golang.org/x/text/unicode/norm
 # gopkg.in/go-playground/validator.v8 v8.18.2
 gopkg.in/go-playground/validator.v8
 # gopkg.in/robfig/cron.v2 v2.0.0-20150107220207-be2e0b0deed5
+## explicit
 gopkg.in/robfig/cron.v2
 # gopkg.in/yaml.v2 v2.2.2
 gopkg.in/yaml.v2

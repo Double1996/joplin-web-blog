@@ -28,8 +28,8 @@ func InitDB(config config.Configuration) (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	DB.AutoMigrate(&Post{}, &Tag{}, &Comment{})
-	//db.Model(&PostTag{}).AddUniqueIndex("uk_post_tag", "post_id", "tag_id")
+	DB.AutoMigrate(&Post{}, &Tag{}, &Comment{}, &User{})
+	//db.Model(&PostTag{}).AddUniqueIndex("post_id", "tag_id")
 	//DB.LogMode(true)
 	return DB, err
 }

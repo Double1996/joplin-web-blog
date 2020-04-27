@@ -16,6 +16,8 @@
 
 ## feature 
 - [x] sync joplin note in web
+- [ ] support image 
+- [ ] support tag 
 - [ ] install by one docker-compose yaml
 - [ ] support github login and comment
 - [ ] sync joplin static file and upload qiniu or s3 
@@ -23,6 +25,7 @@
 ## Thanks
 
 - [wblog](http://67.216.221.42/)  **gin web blog**
+
 
 ## Change Log
 

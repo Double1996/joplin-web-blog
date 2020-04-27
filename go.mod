@@ -1,5 +1,7 @@
 module github.com/double1996/joplin-web-blog
 
+go 1.14
+
 require (
 	github.com/alimoeeny/gooauth2 v0.0.0-20140214171402-62c620a8c7eb
 	github.com/gin-contrib/sessions v0.0.1
