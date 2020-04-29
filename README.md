@@ -15,9 +15,10 @@
 ```
 
 ## feature 
-- [x] sync joplin note in web
-- [ ] support image 
-- [ ] support tag 
+- [x] sync joplin note
+- [ ] support image sync 
+- [ ] support blog tag
+- [ ] react admin 
 - [ ] install by one docker-compose yaml
 - [ ] support github login and comment
 - [ ] sync joplin static file and upload qiniu or s3 
