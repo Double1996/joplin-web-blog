@@ -67,8 +67,6 @@ function Login(props){
                 }else{
                     message.error('用户名密码错误')
                 }
-                
-           
            }
         )
         
