@@ -19,23 +19,19 @@ func init() {
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
-	engine := gin.New()
+	engine := gin.New() // gin new
 	engine.Use(logger.LogHandler())
 
 	routers.InitRouter(engine)
 
-	setTemplate(engine)
+	go setTemplate(engine)
 	setSessions(engine)
-
+	go setCron(config.Conf)
 	db, err := models.InitDB(config.Conf)
 	if err != nil {
 		logger.Fatal("Fatal open database", zap.String("database", err.Error()))
 	}
 	defer db.Close()
-
-	c := cron.New()
-	c.AddFunc(config.Conf.Joplin.Cron, joplin.SyncJoplinBlog)
-	c.Start()
 
 	engine.Run(":" + config.Conf.Server.Port)
 }
@@ -54,4 +50,10 @@ func setTemplate(engine *gin.Engine) {
 
 func setSessions(engine *gin.Engine) {
 
+}
+
+func setCron(config config.Configuration) {
+	c := cron.New()
+	c.AddFunc(config.Joplin.Cron, joplin.SyncJoplinBlog)
+	c.Start()
 }
